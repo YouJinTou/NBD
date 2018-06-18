@@ -27,7 +27,17 @@ namespace NBD.SDK
             this.Id = Guid.NewGuid();
         }
 
-        public Guid Id { get; }
+        public Guid Id
+        {
+            get
+            {
+                return this.id;
+            }
+            private set
+            {
+                this.id = value;
+            }
+        }
 
         public string Title { get; set; }
 
