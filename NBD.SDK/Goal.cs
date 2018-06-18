@@ -5,44 +5,47 @@ namespace NBD.SDK
     public abstract class Goal
     {
         private Guid id;
-        private DateTime startTime;
+        private string title;
+        private DateTime startDate;
+        private DateTime endDate;
+        private Recurrence recurrence;
+        private Progress progress;
 
-        public Goal(string title, DateTime startTime, DateTime endTime)
+        public Goal(string title, DateTime startDate, DateTime endDate, Recurrence recurrence)
         {
             if (string.IsNullOrEmpty(title))
             {
                 throw new ArgumentException("Title must not be empty.");
             }
 
-            if (startTime <= DateTime.Now)
+            if (startDate <= DateTime.Now)
             {
                 throw new ArgumentException("Start time must be in the future.");
             }
 
-            if (endTime <= DateTime.Now || endTime <= startTime)
+            if (endDate <= DateTime.Now || endDate <= startDate)
             {
                 throw new ArgumentException("End time must be greater than start time.");
             }
 
-            this.Id = Guid.NewGuid();
+            this.id = Guid.NewGuid();
+            this.title = title;
+            this.startDate = startDate;
+            this.endDate = endDate;
+            this.recurrence = recurrence; // TODO VALIDATE
+            this.progress = new Progress(this);
         }
 
-        public Guid Id
-        {
-            get
-            {
-                return this.id;
-            }
-            private set
-            {
-                this.id = value;
-            }
-        }
+        public Guid Id => this.id;
 
-        public string Title { get; set; }
+        public string Title => this.title;
 
-        public DateTime StartTime { get; set; }
+        public DateTime StartTime => this.startDate;
 
-        public DateTime EndTime { get; set; }
+        public DateTime EndTime => this.endDate;
+
+        public Progress Progress => this.progress;
+
+        public abstract void MakeProgress();
     }
 }
