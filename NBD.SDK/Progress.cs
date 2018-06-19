@@ -2,12 +2,12 @@
 {
     public class Progress
     {
-        private Goal goal;
+        private Recurrence recurrence;
         private ushort percentComplete;
 
-        public Progress(Goal goal)
+        public Progress(Recurrence recurrence)
         {
-            this.goal = goal;
+            this.recurrence = recurrence;
             this.percentComplete = 0;
         }
 
@@ -17,6 +17,21 @@
 
         public void MakeProgress()
         {
+            switch (this.recurrence.Type)
+            {
+                case RecurrenceType.None:
+                    break;
+                case RecurrenceType.Daily:
+                    break;
+                case RecurrenceType.Weekly:
+                    break;
+                case RecurrenceType.Monthly:
+                    break;
+                case RecurrenceType.Yearly:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
