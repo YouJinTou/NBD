@@ -10,7 +10,7 @@ namespace NBD.SDK
         private DateTime startDate;
         private DateTime endDate;
         private int? target;
-        private int progress;
+        private uint progress;
         private ICollection<Goal> subGoals;
 
         public Goal(
@@ -56,8 +56,13 @@ namespace NBD.SDK
             (this.progress >= target) || 
             (this.progress > 0 && target == null);
 
-        public void MakeProgress(int chunk)
+        public void MakeProgress(uint chunk)
         {
+            if (chunk == 0)
+            {
+                throw new ArgumentException("Progress cannot be 0.");
+            }
+
             this.progress += chunk;
         }
 
