@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NBD.SDK
 {
-    public abstract class Goal
+    public class Goal
     {
         private Guid id;
         private string title;
@@ -52,7 +52,7 @@ namespace NBD.SDK
 
         public int? Target => this.target;
 
-        public bool IsFinished => 
+        public bool IsReached => 
             (this.progress >= target) || 
             (this.progress > 0 && target == null);
 
