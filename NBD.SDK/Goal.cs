@@ -7,16 +7,18 @@ namespace NBD.SDK
     {
         private Guid id;
         private string title;
-        private DateTime startDate;
-        private DateTime endDate;
+        private DateTime? startDate;
+        private DateTime? endDate;
+        private Recurrence recurrence;
         private int? target;
         private uint progress;
         private ICollection<Goal> subGoals;
 
         public Goal(
             string title, 
-            DateTime startDate, 
-            DateTime endDate, 
+            DateTime? startDate, 
+            DateTime? endDate, 
+            Recurrence recurrence,
             int? target = null)
         {
             if (string.IsNullOrEmpty(title))
@@ -24,6 +26,7 @@ namespace NBD.SDK
                 throw new ArgumentException("Title must not be empty.");
             }
 
+            if (recurrence.Type == )
             if (startDate <= DateTime.Now)
             {
                 throw new ArgumentException("Start time must be in the future.");
@@ -38,17 +41,18 @@ namespace NBD.SDK
             this.title = title;
             this.startDate = startDate;
             this.endDate = endDate;
-            this.subGoals = new List<Goal>();
+            this.recurrence = recurrence;
             this.target = target;
+            this.subGoals = new List<Goal>();
         }
 
         public Guid Id => this.id;
 
         public string Title => this.title;
 
-        public DateTime StartDate => this.startDate;
+        public DateTime? StartDate => this.startDate;
 
-        public DateTime EndDate => this.endDate;
+        public DateTime? EndDate => this.endDate;
 
         public int? Target => this.target;
 
