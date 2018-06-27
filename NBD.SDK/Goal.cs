@@ -26,7 +26,6 @@ namespace NBD.SDK
                 throw new ArgumentException("Title must not be empty.");
             }
 
-            if (recurrence.Type == )
             if (startDate <= DateTime.Now)
             {
                 throw new ArgumentException("Start time must be in the future.");
