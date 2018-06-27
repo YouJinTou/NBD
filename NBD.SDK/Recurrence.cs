@@ -9,7 +9,7 @@ namespace NBD.SDK
 
         public Recurrence(RecurrenceType type, uint value)
         {
-            if (type == RecurrenceType.Daily && value != 0)
+            if (type == RecurrenceType.Single && value != 0)
             {
                 throw new ArgumentException(
                     $"Type is {type.ToString()}, so value cannot be {value}.");
