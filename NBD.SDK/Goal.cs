@@ -53,6 +53,8 @@ namespace NBD.SDK
 
         public DateTime? EndDate => this.endDate;
 
+        public Recurrence Recurrence => this.recurrence;
+
         public int? Target => this.target;
 
         public bool IsReached => 
