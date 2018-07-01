@@ -1,65 +1,45 @@
-﻿using System;
+﻿using NBD.SDK.Attributes;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NBD.SDK
 {
     public class Goal
     {
-        private Guid id;
-        private string title;
-        private DateTime? startDate;
-        private DateTime? endDate;
-        private Recurrence recurrence;
-        private int? target;
-        private uint progress;
-        private ICollection<Goal> subGoals;
+        [Key]
+        public Guid Id { get; set; }
 
-        public Goal(
-            string title, 
-            DateTime? startDate, 
-            DateTime? endDate, 
-            Recurrence recurrence,
-            int? target = null)
-        {
-            if (string.IsNullOrEmpty(title))
-            {
-                throw new ArgumentException("Title must not be empty.");
-            }
+        [ForeignKey("ParentGoal")]
+        public Guid? ParentGoalId { get; set; }
 
-            if (startDate <= DateTime.Now)
-            {
-                throw new ArgumentException("Start time must be in the future.");
-            }
+        public virtual Goal ParentGoal { get; set; }
 
-            if (endDate <= DateTime.Now || endDate <= startDate)
-            {
-                throw new ArgumentException("End time must be greater than start time.");
-            }
+        [Required]
+        public string Title { get; set; }
 
-            this.id = Guid.NewGuid();
-            this.title = title;
-            this.startDate = startDate;
-            this.endDate = endDate;
-            this.recurrence = recurrence;
-            this.target = target;
-            this.subGoals = new List<Goal>();
-        }
+        [FutureDateTime]
+        public DateTime? StartDate { get; set; }
 
-        public Guid Id => this.id;
+        [FutureDateTime]
+        // TO-DO [AfterDateTimeAttribute]
+        public DateTime? EndDate { get; set; }
 
-        public string Title => this.title;
+        [Required]
+        public RecurrenceType RecurrenceType { get; set; }
 
-        public DateTime? StartDate => this.startDate;
+        [Required]
+        public uint RecurrenceValue { get; set; }
 
-        public DateTime? EndDate => this.endDate;
+        public int? Target { get; set; }
 
-        public Recurrence Recurrence => this.recurrence;
+        public uint Progress { get; set; }
 
-        public int? Target => this.target;
+        public virtual ICollection<Goal> SubGoals { get; set; }
 
-        public bool IsReached => 
-            (this.progress >= target) || 
-            (this.progress > 0 && target == null);
+        [Required]
+        public bool IsReached { get; set; }
 
         public void MakeProgress(uint chunk)
         {
@@ -68,11 +48,17 @@ namespace NBD.SDK
                 throw new ArgumentException("Progress cannot be 0.");
             }
 
-            this.progress += chunk;
+            this.Progress += chunk;
         }
 
         public void AddSubGoal(Goal goal)
         {
+            if ((goal.StartDate != null && goal.EndDate == null) || 
+                (goal.StartDate == null && goal.EndDate != null))
+            {
+                throw new ArgumentException("One of the goal dates is null.");
+            }
+
             if (goal.StartDate <= this.StartDate || goal.StartDate >= this.EndDate)
             {
                 throw new ArgumentException("Invalid subgoal start date.");
@@ -83,7 +69,7 @@ namespace NBD.SDK
                 throw new ArgumentException("Invalid subgoal end date.");
             }
 
-            this.subGoals.Add(goal);
+            this.SubGoals.Add(goal);
         }
     }
 }

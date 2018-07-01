@@ -11,5 +11,14 @@ namespace NBD.Tracker.DAL
         }
 
         public DbSet<Goal> Goals { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Goal>()
+                .HasOne(g => g.ParentGoal)
+                .WithMany(pg => pg.SubGoals);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
