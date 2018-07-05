@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NBD.Tracker.Configuration;
 using NBD.Tracker.DAL;
 
 namespace NBD.Tracker
@@ -37,11 +38,13 @@ namespace NBD.Tracker
                 app.UseDeveloperExceptionPage();
             }
 
+            MapperConfig.RegisterMappings();
+
             app.UseMvc();
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                await context.Response.WriteAsync(string.Empty);
             });
         }
     }
