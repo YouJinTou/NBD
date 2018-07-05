@@ -20,12 +20,28 @@ namespace NBD.Tracker.Controllers
         }
 
         [Route("{id}")]
-        public async Task<IActionResult> GetGoal(Guid id)
+        public async Task<IActionResult> GetGoalAsync(Guid id)
         {
             var goal = await this.context.Goals.FirstOrDefaultAsync(g => g.Id == id);
             var model = Mapper.Map<Goal, GoalViewModel>(goal);
 
             return Ok(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddGoalAsync([FromBody]GoalBindingModel goal)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(goal);
+            }
+
+            var dbGoal = Mapper.Map<GoalBindingModel, Goal>(goal);
+            dbGoal.Id = Guid.NewGuid();
+
+            // TODO: Persist to DB.
+
+            return Ok(dbGoal);
         }
     }
 }
