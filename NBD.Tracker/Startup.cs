@@ -24,8 +24,10 @@ namespace NBD.Tracker
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
             services.AddDbContext<TrackerContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TrackerDb")));
+            services.AddScoped<ITrackerContext, TrackerContext>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -34,6 +36,8 @@ namespace NBD.Tracker
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMvc();
 
             app.Run(async (context) =>
             {
