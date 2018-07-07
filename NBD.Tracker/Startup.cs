@@ -28,7 +28,8 @@ namespace NBD.Tracker
             services.AddMvc();
             services.AddDbContext<TrackerContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TrackerDb")));
-            services.AddScoped<ITrackerContext, TrackerContext>();
+            services.AddScoped<DbContext, TrackerContext>();
+            services.AddScoped<IGoalsRepository, GoalsRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

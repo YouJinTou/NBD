@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using NBD.SDK;
 using NBD.Tracker.DAL;
 using NBD.Tracker.Models;
@@ -12,36 +11,42 @@ namespace NBD.Tracker.Controllers
     [Route("api/[controller]/")]
     public class GoalsController : Controller
     {
-        private readonly ITrackerContext context;
+        private readonly IGoalsRepository goals;
 
-        public GoalsController(ITrackerContext context)
+        public GoalsController(IGoalsRepository goals)
         {
-            this.context = context;
+            this.goals = goals;
         }
 
         [Route("{id}")]
         public async Task<IActionResult> GetGoalAsync(Guid id)
         {
-            var goal = await this.context.Goals.FirstOrDefaultAsync(g => g.Id == id);
+            var goal = await this.goals.GetGoalAsync(id);
             var model = Mapper.Map<Goal, GoalViewModel>(goal);
 
             return Ok(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddGoalAsync([FromBody]GoalBindingModel goal)
+        public async Task<IActionResult> AddGoalAsync([FromBody]GoalBindingModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(goal);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(model);
+                }
+
+                var goal = Mapper.Map<GoalBindingModel, Goal>(model);
+
+                await this.goals.AddGoalAsync(goal);
+
+                return Ok(goal);
             }
-
-            var dbGoal = Mapper.Map<GoalBindingModel, Goal>(goal);
-            dbGoal.Id = Guid.NewGuid();
-
-            // TODO: Persist to DB.
-
-            return Ok(dbGoal);
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
     }
 }

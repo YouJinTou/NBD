@@ -4,26 +4,14 @@ using System.Linq;
 
 namespace NBD.Tracker.DAL
 {
-    public class TrackerContext : DbContext, ITrackerContext
+    public class TrackerContext : DbContext
     {
         public TrackerContext(DbContextOptions<TrackerContext> options)
             : base(options)
         {
         }
 
-        public DbSet<Goal> DbGoals { get; set; }
-
-        public IQueryable<Goal> Goals
-        {
-            get
-            {
-                return this.DbGoals;
-            }
-            set
-            {
-                this.DbGoals = (DbSet<Goal>)value;
-            }
-        }
+        public DbSet<Goal> Goals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
