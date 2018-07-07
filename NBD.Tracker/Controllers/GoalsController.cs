@@ -18,6 +18,7 @@ namespace NBD.Tracker.Controllers
             this.goals = goals;
         }
 
+        [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetGoalAsync(Guid id)
         {
