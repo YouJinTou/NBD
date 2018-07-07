@@ -8,6 +8,11 @@ namespace NBD.SDK
 {
     public class Goal
     {
+        public Goal()
+        {
+            this.Id = Guid.NewGuid();
+        }
+
         [Key]
         public Guid Id { get; set; }
 
