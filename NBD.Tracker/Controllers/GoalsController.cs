@@ -21,10 +21,17 @@ namespace NBD.Tracker.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetGoalAsync(Guid id)
         {
-            var goal = await this.goals.GetGoalAsync(id);
-            var model = Mapper.Map<Goal, GoalViewModel>(goal);
+            try
+            {
+                var goal = await this.goals.GetGoalAsync(id);
+                var model = Mapper.Map<Goal, GoalViewModel>(goal);
 
-            return Ok(model);
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
 
         [HttpPost]
@@ -45,7 +52,7 @@ namespace NBD.Tracker.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return StatusCode(500, ex);
             }
         }
     }
