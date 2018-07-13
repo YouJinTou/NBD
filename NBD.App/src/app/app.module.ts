@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '../../node_modules/@angular/http';
 
 import { AppComponent } from './app.component';
 import { GoalFormComponent } from './goals/goal-form/goal-form.component';
+import { GoalsService } from './goals/goals.service';
 
 @NgModule({
   declarations: [
@@ -12,9 +14,10 @@ import { GoalFormComponent } from './goals/goal-form/goal-form.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [GoalsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
