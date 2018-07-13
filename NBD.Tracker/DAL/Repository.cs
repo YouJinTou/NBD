@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NBD.Tracker.DAL
@@ -22,6 +25,11 @@ namespace NBD.Tracker.DAL
             this.context.Add(entity);
 
             await this.context.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> Where(Func<T, bool> predicate)
+        {
+            return this.context.Set<T>().Where(predicate).ToList();
         }
     }
 }

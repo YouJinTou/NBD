@@ -17,7 +17,7 @@ namespace NBD.Tracker.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Goal>()
-                .HasOne(g => g.ParentGoal)
+                .HasOne(g => g.Parent)
                 .WithMany(pg => pg.SubGoals);
 
             base.OnModelCreating(modelBuilder);
