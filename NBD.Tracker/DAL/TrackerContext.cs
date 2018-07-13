@@ -12,6 +12,8 @@ namespace NBD.Tracker.DAL
 
         public DbSet<Goal> Goals { get; set; }
 
+        public DbSet<GoalTree> Trees { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Goal>()
