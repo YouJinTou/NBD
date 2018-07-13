@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Threading.Tasks;
 
 namespace NBD.Tracker.DAL
@@ -13,7 +12,7 @@ namespace NBD.Tracker.DAL
             this.context = context;
         }
 
-        public async Task<T> GetAsync(Guid id)
+        public async Task<T> GetAsync(object id)
         {
             return await this.context.FindAsync<T>(id);
         }
