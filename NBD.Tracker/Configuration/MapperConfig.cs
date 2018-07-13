@@ -12,6 +12,8 @@ namespace NBD.Tracker.Configuration
             {
                 cfg.CreateMap<Goal, GoalViewModel>();
                 cfg.CreateMap<GoalBindingModel, Goal>();
+                cfg.CreateMap<GoalTreeBindingModel, GoalTree>()
+                    .ForMember(d => d.RootId, o => o.MapFrom(s => s.RootGoal.RootId));
             });
         }
     }
