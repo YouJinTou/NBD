@@ -26,6 +26,12 @@ namespace NBD.Tracker
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddCors(builder => builder.AddPolicy("UIPolicy", p =>
+            {
+                p.WithOrigins(Configuration.GetSection("allowedOrigins").Get<string[]>())
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
             services.AddDbContext<TrackerContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TrackerDb")));
             services.AddScoped<DbContext, TrackerContext>();
@@ -42,6 +48,8 @@ namespace NBD.Tracker
             MapperConfig.RegisterMappings();
 
             app.UseMvc();
+
+            app.UseCors("UIPolicy");
 
             app.Run(async (context) =>
             {

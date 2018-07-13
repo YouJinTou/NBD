@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NBD.SDK;
 using NBD.Tracker.DAL;
@@ -8,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace NBD.Tracker.Controllers
 {
-    [Route("api/[controller]/")]
+    [EnableCors("UIPolicy")]
+    [Route("api/[controller]")]
     public class GoalsController : Controller
     {
         private readonly IGoalsRepository goals;
@@ -36,6 +38,7 @@ namespace NBD.Tracker.Controllers
         }
 
         [HttpPost]
+        [Route("")]
         public async Task<IActionResult> AddGoalAsync([FromBody]GoalBindingModel model)
         {
             try
