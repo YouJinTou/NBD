@@ -22,6 +22,7 @@ namespace NBD.SDK
         public virtual Goal ParentGoal { get; set; }
 
         [Required]
+        [StringLength(512)]
         public string Title { get; set; }
 
         [FutureDateTime]
