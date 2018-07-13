@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NBD.SDK;
 using NBD.Tracker.Configuration;
 using NBD.Tracker.DAL;
 
@@ -35,7 +36,7 @@ namespace NBD.Tracker
             services.AddDbContext<TrackerContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TrackerDb")));
             services.AddScoped<DbContext, TrackerContext>();
-            services.AddScoped<IGoalsRepository, GoalsRepository>();
+            services.AddScoped<IRepository<Goal>, Repository<Goal>>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

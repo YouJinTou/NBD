@@ -1,27 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NBD.SDK;
 using System;
 using System.Threading.Tasks;
 
 namespace NBD.Tracker.DAL
 {
-    public class GoalsRepository : IGoalsRepository
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly DbContext context;
 
-        public GoalsRepository(DbContext context)
+        public Repository(DbContext context)
         {
             this.context = context;
         }
 
-        public async Task<Goal> GetGoalAsync(Guid id)
+        public async Task<T> GetAsync(Guid id)
         {
-            return await this.context.FindAsync<Goal>(id);
+            return await this.context.FindAsync<T>(id);
         }
 
-        public async Task AddGoalAsync(Goal goal)
+        public async Task AddAsync(T entity)
         {
-            this.context.Add(goal);
+            this.context.Add(entity);
 
             await this.context.SaveChangesAsync();
         }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NBD.SDK;
-using System.Linq;
 
 namespace NBD.Tracker.DAL
 {

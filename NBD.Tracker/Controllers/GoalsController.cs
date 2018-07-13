@@ -13,9 +13,9 @@ namespace NBD.Tracker.Controllers
     [Route("api/[controller]")]
     public class GoalsController : Controller
     {
-        private readonly IGoalsRepository goals;
+        private readonly IRepository<Goal> goals;
 
-        public GoalsController(IGoalsRepository goals)
+        public GoalsController(IRepository<Goal> goals)
         {
             this.goals = goals;
         }
@@ -26,7 +26,7 @@ namespace NBD.Tracker.Controllers
         {
             try
             {
-                var goal = await this.goals.GetGoalAsync(id);
+                var goal = await this.goals.GetAsync(id);
                 var model = Mapper.Map<Goal, GoalViewModel>(goal);
 
                 return Ok(model);
@@ -50,7 +50,7 @@ namespace NBD.Tracker.Controllers
 
                 var goal = Mapper.Map<GoalBindingModel, Goal>(model);
 
-                await this.goals.AddGoalAsync(goal);
+                await this.goals.AddAsync(goal);
 
                 return Ok(goal);
             }
