@@ -16,10 +16,13 @@ namespace NBD.SDK
         [Key]
         public Guid Id { get; set; }
 
-        [ForeignKey("ParentGoal")]
-        public Guid? ParentGoalId { get; set; }
+        [Required]
+        public Guid RootId { get; set; }
 
-        public virtual Goal ParentGoal { get; set; }
+        [ForeignKey("ParentGoal")]
+        public Guid? ParentId { get; set; }
+
+        public virtual Goal Parent { get; set; }
 
         [Required]
         [StringLength(512)]
