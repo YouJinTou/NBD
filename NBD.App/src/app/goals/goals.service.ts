@@ -6,9 +6,23 @@ import { Goal } from './goal';
 
 @Injectable()
 export class GoalsService {
-    private readonly baseEndpoint = 'http://localhost:50401/api/goals';
+    private readonly baseEndpoint = 'http://localhost:50401/api/goals/';
 
     constructor(private http: Http) { }
+
+    getGoal(id: string): Promise<Goal> {
+        var endpoint = this.baseEndpoint + id;
+
+        return this.http
+            .get(endpoint)
+            .toPromise()
+            .then(r => r.json() as Goal)
+            .catch(err => {
+                console.log(err);
+
+                return new Goal();
+            });
+    }
 
     addGoal(goal: Goal): Promise<Goal> {
         return this.http
@@ -19,6 +33,6 @@ export class GoalsService {
                 console.log(err);
 
                 return new Goal();
-            })
+            });
     }
 }
