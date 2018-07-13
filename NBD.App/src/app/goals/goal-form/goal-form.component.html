@@ -1,7 +1,7 @@
-<form>
+<form (ngSubmit)="onSubmit()" #addGoalForm="ngForm">
     <div>
         <label for="title">Title</label>
-        <input name="title" type="text" />
+        <input [(ngModel)]="goal.title" name="title" id="title" type="text" required />
     </div>
     
     <input type="submit" value="Add goal" />
