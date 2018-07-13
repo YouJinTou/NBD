@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NBD.Tracker", "NBD.Tracker\
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{30F63919-91A3-44B1-9F07-DB9C6BFA8063}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBD.Auth", "NBD.Auth\NBD.Auth.csproj", "{67D0EE0A-0E3C-45A3-B90E-4663066EF8FE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{30F63919-91A3-44B1-9F07-DB9C6BFA8063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30F63919-91A3-44B1-9F07-DB9C6BFA8063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30F63919-91A3-44B1-9F07-DB9C6BFA8063}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67D0EE0A-0E3C-45A3-B90E-4663066EF8FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67D0EE0A-0E3C-45A3-B90E-4663066EF8FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67D0EE0A-0E3C-45A3-B90E-4663066EF8FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67D0EE0A-0E3C-45A3-B90E-4663066EF8FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
