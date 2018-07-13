@@ -37,6 +37,7 @@ namespace NBD.Tracker
                 options.UseSqlServer(Configuration.GetConnectionString("TrackerDb")));
             services.AddScoped<DbContext, TrackerContext>();
             services.AddScoped<IRepository<Goal>, Repository<Goal>>();
+            services.AddScoped<IRepository<GoalTree>, Repository<GoalTree>>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
