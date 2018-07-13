@@ -6,7 +6,19 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
+  ndb.auth:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+  nbd.auth:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
 networks:
   default:
     external:
       name: nat
+
+

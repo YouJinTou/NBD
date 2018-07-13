@@ -6,3 +6,17 @@ services:
     build:
       context: .
       dockerfile: NBD.Tracker\Dockerfile
+
+  ndb.auth:
+    image: ndb.auth
+    build:
+      context: .
+      dockerfile: ..\NDB.Auth\Dockerfile
+
+
+  nbd.auth:
+    image: nbd.auth
+    build:
+      context: .
+      dockerfile: NBD.Auth\Dockerfile
+
