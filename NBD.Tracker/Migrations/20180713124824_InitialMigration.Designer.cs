@@ -10,7 +10,7 @@ using NBD.Tracker.DAL;
 namespace NBD.Tracker.Migrations
 {
     [DbContext(typeof(TrackerContext))]
-    [Migration("20180707061320_InitialMigration")]
+    [Migration("20180713124824_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,7 +30,7 @@ namespace NBD.Tracker.Migrations
 
                     b.Property<bool>("IsReached");
 
-                    b.Property<Guid?>("ParentGoalId");
+                    b.Property<Guid?>("ParentId");
 
                     b.Property<long>("Progress");
 
@@ -38,25 +38,56 @@ namespace NBD.Tracker.Migrations
 
                     b.Property<long>("RecurrenceValue");
 
+                    b.Property<Guid>("RootId");
+
                     b.Property<DateTime?>("StartDate");
 
                     b.Property<int?>("Target");
 
                     b.Property<string>("Title")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(512);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentGoalId");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Goals");
                 });
 
+            modelBuilder.Entity("NBD.SDK.GoalTree", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("PrivateId");
+
+                    b.Property<Guid>("RootId");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(512);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RootId");
+
+                    b.ToTable("Trees");
+                });
+
             modelBuilder.Entity("NBD.SDK.Goal", b =>
                 {
-                    b.HasOne("NBD.SDK.Goal", "ParentGoal")
+                    b.HasOne("NBD.SDK.Goal", "Parent")
                         .WithMany("SubGoals")
-                        .HasForeignKey("ParentGoalId");
+                        .HasForeignKey("ParentId");
+                });
+
+            modelBuilder.Entity("NBD.SDK.GoalTree", b =>
+                {
+                    b.HasOne("NBD.SDK.Goal", "Root")
+                        .WithMany()
+                        .HasForeignKey("RootId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

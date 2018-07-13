@@ -28,13 +28,15 @@ namespace NBD.Tracker.Migrations
 
                     b.Property<bool>("IsReached");
 
-                    b.Property<Guid?>("ParentGoalId");
+                    b.Property<Guid?>("ParentId");
 
                     b.Property<long>("Progress");
 
                     b.Property<int>("RecurrenceType");
 
                     b.Property<long>("RecurrenceValue");
+
+                    b.Property<Guid>("RootId");
 
                     b.Property<DateTime?>("StartDate");
 
@@ -46,7 +48,7 @@ namespace NBD.Tracker.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentGoalId");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Goals");
                 });
@@ -56,17 +58,13 @@ namespace NBD.Tracker.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PrivateHash")
-                        .IsRequired();
-
-                    b.Property<string>("PublicHash")
-                        .IsRequired();
+                    b.Property<Guid>("PrivateId");
 
                     b.Property<Guid>("RootId");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(512);
 
                     b.HasKey("Id");
 
@@ -77,9 +75,9 @@ namespace NBD.Tracker.Migrations
 
             modelBuilder.Entity("NBD.SDK.Goal", b =>
                 {
-                    b.HasOne("NBD.SDK.Goal", "ParentGoal")
+                    b.HasOne("NBD.SDK.Goal", "Parent")
                         .WithMany("SubGoals")
-                        .HasForeignKey("ParentGoalId");
+                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("NBD.SDK.GoalTree", b =>
