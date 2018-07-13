@@ -6,18 +6,21 @@ namespace NBD.SDK
 {
     public class GoalTree
     {
+        public GoalTree()
+        {
+            this.Id = Guid.NewGuid();
+            this.PrivateId = Guid.NewGuid();
+        }
+
         [Key]
         public Guid Id { get; set; }
 
-        [StringLength(256)]
         [Required]
-        public string Name { get; set; }
+        public Guid PrivateId { get; set; }
 
+        [StringLength(512)]
         [Required]
-        public string PublicHash { get; set; }
-
-        [Required]
-        public string PrivateHash { get; set; }
+        public string Title { get; set; }
 
         [ForeignKey("Root")]
         public Guid RootId { get; set; }
