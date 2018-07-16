@@ -16,9 +16,6 @@ namespace NBD.SDK
         [Key]
         public Guid Id { get; set; }
 
-        [Required]
-        public Guid RootId { get; set; }
-
         [ForeignKey("ParentGoal")]
         public Guid? ParentId { get; set; }
 

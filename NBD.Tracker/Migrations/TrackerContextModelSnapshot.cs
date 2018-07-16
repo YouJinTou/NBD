@@ -36,8 +36,6 @@ namespace NBD.Tracker.Migrations
 
                     b.Property<long>("RecurrenceValue");
 
-                    b.Property<Guid>("RootId");
-
                     b.Property<DateTime?>("StartDate");
 
                     b.Property<int?>("Target");
@@ -53,39 +51,11 @@ namespace NBD.Tracker.Migrations
                     b.ToTable("Goals");
                 });
 
-            modelBuilder.Entity("NBD.SDK.GoalTree", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("PrivateId");
-
-                    b.Property<Guid>("RootId");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(512);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RootId");
-
-                    b.ToTable("Trees");
-                });
-
             modelBuilder.Entity("NBD.SDK.Goal", b =>
                 {
                     b.HasOne("NBD.SDK.Goal", "Parent")
                         .WithMany("SubGoals")
                         .HasForeignKey("ParentId");
-                });
-
-            modelBuilder.Entity("NBD.SDK.GoalTree", b =>
-                {
-                    b.HasOne("NBD.SDK.Goal", "Root")
-                        .WithMany()
-                        .HasForeignKey("RootId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

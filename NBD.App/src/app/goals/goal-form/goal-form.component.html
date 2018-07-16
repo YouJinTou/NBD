@@ -15,6 +15,26 @@
         <label for="title">Title</label>
         <input [(ngModel)]="goal.title" name="title" id="title" type="text" required />
     </div>
+
+    <div>
+        <label for="startDate">Start date</label>
+        <input [(ngModel)]="goal.startDate" name="startDate" id="startDate" type="text" required />
+    </div>
+
+    <div>
+        <label for="endDate">End date</label>
+        <input [(ngModel)]="goal.endDate" name="endDate" id="endDate" type="text" required />
+    </div>
+
+    <div>
+        <label for="recurrenceType">Recurrence type</label>
+        <input [(ngModel)]="goal.recurrenceType" name="recurrenceType" id="recurrenceType" type="text" required />
+    </div>
     
+    <div>
+        <label for="recurrenceValue">Recurrence value</label>
+        <input [(ngModel)]="goal.recurrenceValue" name="recurrenceValue" id="recurrenceValue" type="text" required />
+    </div>
+
     <input type="submit" value="Add goal" />
 </form>

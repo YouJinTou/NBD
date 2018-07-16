@@ -3,7 +3,6 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Goal } from './goal';
-import { GoalTree } from './goal-tree';
 
 @Injectable()
 export class GoalsService {
@@ -36,20 +35,6 @@ export class GoalsService {
                 console.log(err);
 
                 return new Goal();
-            });
-    }
-
-    createTree(tree: GoalTree): Promise<GoalTree> {
-        var endpoint = this.baseEndpoint + '/goalTrees';
-
-        return this.http
-            .post(endpoint, tree)
-            .toPromise()
-            .then(r => r.json() as GoalTree)
-            .catch(err => {
-                console.log(err);
-
-                return new GoalTree();
             });
     }
 }

@@ -6,9 +6,6 @@ namespace NBD.Tracker.Models
 {
     public class GoalBindingModel
     {
-        [Required]
-        public Guid RootId { get; set; }
-
         public Guid? ParentId { get; set; }
 
         [Required(ErrorMessage = "The title is required.")]
