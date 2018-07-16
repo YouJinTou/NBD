@@ -9,7 +9,7 @@ namespace NBD.Tracker.Models
         [Required]
         public Guid RootId { get; set; }
 
-        public Guid? ParentGoalId { get; set; }
+        public Guid? ParentId { get; set; }
 
         [Required(ErrorMessage = "The title is required.")]
         public string Title { get; set; }
