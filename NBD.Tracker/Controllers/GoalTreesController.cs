@@ -6,6 +6,7 @@ using NBD.Tracker.DAL;
 using NBD.Tracker.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NBD.Tracker.Controllers
@@ -31,9 +32,10 @@ namespace NBD.Tracker.Controllers
             {
                 var tree = await this.trees.GetAsync(id);
                 var goals = this.goals.Where(g => g.RootId == tree.RootId);
-                var model = Mapper.Map<IEnumerable<Goal>, IEnumerable<GoalViewModel>>(goals);
+                var modelGoals = Mapper.Map<IEnumerable<Goal>, IEnumerable<GoalViewModel>>(goals);
+                var modelRoot = modelGoals.FirstOrDefault(mg => mg.Id == tree.RootId);
 
-                return Ok(model);
+                return Ok(modelRoot);
             }
             catch (Exception ex)
             {
