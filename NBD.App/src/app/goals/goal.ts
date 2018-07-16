@@ -1,3 +1,5 @@
 export class Goal {
-    title: string
+    title: string;
+    rootId: string;
+    parentId: string;
 }

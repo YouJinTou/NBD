@@ -2,6 +2,16 @@
 
 <form (ngSubmit)="onSubmit()" #addGoalForm="ngForm">
     <div>
+        <label for="rootId">Root ID</label>
+        <input [(ngModel)]="goal.rootId" name="rootId" id="rootId" type="text" required />
+    </div>
+
+    <div>
+        <label for="parentId">Parent ID</label>
+        <input [(ngModel)]="goal.parentId" name="parentId" id="parentId" type="text" required />
+    </div>
+
+    <div>
         <label for="title">Title</label>
         <input [(ngModel)]="goal.title" name="title" id="title" type="text" required />
     </div>
