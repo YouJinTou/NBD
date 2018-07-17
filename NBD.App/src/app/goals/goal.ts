@@ -1,10 +1,13 @@
 export class Goal {
-    title: string;
-    rootId: string;
+    id: string;
     parentId: string;
+    title: string;
     startDate: string;
     endDate: string;
     recurrenceType: number;
     recurrenceValue: number;
-    value: number;
+    target: number;
+    progress: number;
+    subGoals: Goal[];
+    isReached: boolean;
 }
