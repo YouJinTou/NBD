@@ -26,18 +26,21 @@ namespace NBD.Tracker.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetGoalAsync(Guid id)
         {
-            try
+            return await Task.Run(() =>
             {
-                var goals = this.goals.Where(g => g.Id == id);
-                var modelGoals = Mapper.Map<IEnumerable<Goal>, IEnumerable<GoalViewModel>>(goals);
-                var modelRoot = modelGoals.FirstOrDefault(mg => mg.Id == id);
+                try
+                {
+                    var goals = this.goals.Where(g => g.Id == id);
+                    var modelGoals = Mapper.Map<IEnumerable<Goal>, IEnumerable<GoalViewModel>>(goals);
+                    var modelRoot = modelGoals.FirstOrDefault(mg => mg.Id == id);
 
-                return Ok(modelRoot);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex);
-            }
+                    return Ok(modelRoot);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, ex);
+                }
+            });
         }
 
         [HttpPost]
