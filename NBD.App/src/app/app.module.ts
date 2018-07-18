@@ -7,7 +7,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { GoalFormComponent } from './goals/goal-form/goal-form.component';
 import { GoalTreeComponent } from './goals/goal-tree/goal-tree.component';
-import { GoalTreeNodeComponent } from './goals/goal-tree-node/goal-tree-node.component';
 import { GoalsService } from './goals/goals.service';
 
 const appRoutes: Routes = [
@@ -19,8 +18,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     GoalFormComponent,
-    GoalTreeComponent,
-    GoalTreeNodeComponent
+    GoalTreeComponent
   ],
   imports: [
     BrowserModule,
