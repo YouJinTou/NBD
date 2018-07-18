@@ -11,6 +11,7 @@ import { GoalTreeNodeComponent } from './goals/goal-tree-node/goal-tree-node.com
 import { GoalsService } from './goals/goals.service';
 
 const appRoutes: Routes = [
+  { path: 'tree', component: GoalFormComponent },
   { path: 'trees/:id', component: GoalTreeComponent }
 ];
 
