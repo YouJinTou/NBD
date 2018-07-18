@@ -11,7 +11,7 @@ import { GoalTreeNodeComponent } from './goals/goal-tree-node/goal-tree-node.com
 import { GoalsService } from './goals/goals.service';
 
 const appRoutes: Routes = [
-  { path: 'tree/:id', component: GoalTreeComponent }
+  { path: 'trees/:id', component: GoalTreeComponent }
 ];
 
 @NgModule({
