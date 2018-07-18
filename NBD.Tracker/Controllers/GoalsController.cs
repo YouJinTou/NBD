@@ -49,7 +49,7 @@ namespace NBD.Tracker.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
+                if (!ModelState.IsValid || !await model.IsWithinParentDatesAsync(this.goals))
                 {
                     return BadRequest(model);
                 }
