@@ -9,4 +9,15 @@ import { Goal } from '../goal';
 })
 export class GoalTreeNodeComponent {
   @Input() node: Goal;
+  showAddForm: boolean;
+  addFormToggleText: string;
+
+  constructor() {
+    this.addFormToggleText = 'Add';
+  }
+
+  onAddClick() {
+    this.showAddForm = !this.showAddForm;
+    this.addFormToggleText = this.showAddForm ? 'Close' : 'Add';
+  }
 }

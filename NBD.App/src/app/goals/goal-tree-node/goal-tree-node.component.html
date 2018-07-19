@@ -1,5 +1,11 @@
 <div>
-    <h3>{{node?.title}}</h3>
+    <div>
+        <h3>{{node?.title}}</h3>
+        <div *ngIf="showAddForm">
+            <goal-form></goal-form>
+        </div>
+        <button (click)="onAddClick()">{{addFormToggleText}}</button>
+    </div>
 
     <div>
         <label>Start</label>
