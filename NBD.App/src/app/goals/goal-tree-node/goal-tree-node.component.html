@@ -2,7 +2,7 @@
     <div>
         <h3>{{node?.title}}</h3>
         <div *ngIf="showAddForm">
-            <goal-form></goal-form>
+            <goal-form [parent]="node"></goal-form>
         </div>
         <button (click)="onAddClick()">{{addFormToggleText}}</button>
     </div>
@@ -37,3 +37,5 @@
         <span>{{node?.progress}}</span>
     </div>
 </div>
+
+<goal-tree-node *ngFor="let child of node?.subGoals" [node]="child"></goal-tree-node>
