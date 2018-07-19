@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { GoalsService } from '../goals.service';
 import { Goal } from '../goal';
@@ -9,6 +9,7 @@ import { Goal } from '../goal';
     styleUrls: ['./goal-form.component.css']
 })
 export class GoalFormComponent {
+    @Input() parent: Goal;
     goal: Goal;
 
     constructor(private goalsService: GoalsService) { 
@@ -16,6 +17,10 @@ export class GoalFormComponent {
     }
 
     onSubmit() {
+        if (this.parent != null) {
+            this.goal.parentId = this.parent.id;
+        }
+
         this.goalsService.addGoal(this.goal);
     }
 }
