@@ -2,16 +2,6 @@
 
 <form (ngSubmit)="onSubmit()" #addGoalForm="ngForm">
     <div>
-        <label for="rootId">Root ID</label>
-        <input [(ngModel)]="goal.rootId" name="rootId" id="rootId" type="text" required />
-    </div>
-
-    <div>
-        <label for="parentId">Parent ID</label>
-        <input [(ngModel)]="goal.parentId" name="parentId" id="parentId" type="text" required />
-    </div>
-
-    <div>
         <label for="title">Title</label>
         <input [(ngModel)]="goal.title" name="title" id="title" type="text" required />
     </div>
@@ -30,10 +20,15 @@
         <label for="recurrenceType">Recurrence type</label>
         <input [(ngModel)]="goal.recurrenceType" name="recurrenceType" id="recurrenceType" type="text" required />
     </div>
-    
+
     <div>
         <label for="recurrenceValue">Recurrence value</label>
         <input [(ngModel)]="goal.recurrenceValue" name="recurrenceValue" id="recurrenceValue" type="text" required />
+    </div>
+
+    <div>
+        <label for="target">Target</label>
+        <input [(ngModel)]="goal.target" name="target" id="target" type="text" required />
     </div>
 
     <input type="submit" value="Add goal" />
