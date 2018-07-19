@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 import { GoalsService } from '../goals.service';
 import { Goal } from '../goal';
@@ -13,7 +13,7 @@ export class GoalFormComponent {
     @Input() parent: Goal;
     goal: Goal;
 
-    constructor(private goalsService: GoalsService, private router: Router) { 
+    constructor(private goalsService: GoalsService, private router: Router) {
         this.goal = new Goal();
     }
 
@@ -22,8 +22,8 @@ export class GoalFormComponent {
             this.goal.parentId = this.parent.id;
         }
 
-        this.goalsService.addGoal(this.goal)
-            .then(r => this.router.navigate(['trees', r.id]))
-            .catch(err => console.log(err));
+        this.goalsService.addGoal(this.goal).subscribe((r: Goal) => {
+            this.router.navigate(['trees', r.id])
+        });
     }
 }

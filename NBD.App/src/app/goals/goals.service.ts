@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs';
+import 'rxjs/add/observable/of';
 
 import { Goal } from './goal';
 
@@ -8,33 +10,17 @@ import { Goal } from './goal';
 export class GoalsService {
     private readonly baseEndpoint = 'http://localhost:50401/api/';
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
-    getGoal(id: string): Promise<Goal> {
+    getGoal(id: string): Observable<Goal> {
         var endpoint = this.baseEndpoint + '/goals/' + id;
 
-        return this.http
-            .get(endpoint)
-            .toPromise()
-            .then(r => r.json() as Goal)
-            .catch(err => {
-                console.log(err);
-
-                return new Goal();
-            });
+        return this.http.get<Goal>(endpoint);
     }
 
-    addGoal(goal: Goal): Promise<Goal> {
+    addGoal(goal: Goal): Observable<Goal> {
         var endpoint = this.baseEndpoint + '/goals';
 
-        return this.http
-            .post(endpoint, goal)
-            .toPromise()
-            .then(r => r.json() as Goal)
-            .catch(err => {
-                console.log(err);
-
-                return new Goal();
-            });
+        return this.http.post<Goal>(endpoint, goal);
     }
 }

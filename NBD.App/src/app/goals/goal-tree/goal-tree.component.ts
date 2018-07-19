@@ -16,7 +16,7 @@ export class GoalTreeComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            this.goalsService.getGoal(params['id']).then(r => this.root = r);
+            this.goalsService.getGoal(params['id']).subscribe(r => this.root = r);
         });
     }
 }
