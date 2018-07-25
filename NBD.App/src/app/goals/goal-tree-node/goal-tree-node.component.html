@@ -1,40 +1,46 @@
-<div>
-    <div>
-        <h3>{{node?.title}}</h3>
-        <div *ngIf="showAddForm">
-            <goal-form [parent]="node"></goal-form>
+<div [ngStyle]="getProgressBar()" class="row goal-box">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-lg-4">
+                <h3>{{node?.title}}</h3>
+                <div *ngIf="showAddForm">
+                    <goal-form [parent]="node"></goal-form>
+                </div>
+                <button (click)="onAddClick()">{{addFormToggleText}}</button>
+            </div>
+
+            <div class="col-lg-4">
+                <label>Start</label>
+                <span>{{node?.startDate}}</span>
+            </div>
+
+            <div class="col-lg-4">
+                <label>End</label>
+                <span>{{node?.endDate}}</span>
+            </div>
         </div>
-        <button (click)="onAddClick()">{{addFormToggleText}}</button>
-    </div>
 
-    <div>
-        <label>Start</label>
-        <span>{{node?.startDate}}</span>
-    </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label>Type</label>
+                <span>{{node?.recurrenceType}}</span>
+            </div>
 
-    <div>
-        <label>End</label>
-        <span>{{node?.endDate}}</span>
-    </div>
+            <div class="col-lg-3">
+                <label>Value</label>
+                <span>{{node?.recurrenceValue}}</span>
+            </div>
 
-    <div>
-        <label>Type</label>
-        <span>{{node?.recurrenceType}}</span>
-    </div>
+            <div class="col-lg-3">
+                <label>Target</label>
+                <span>{{node?.target}}</span>
+            </div>
 
-    <div>
-        <label>Value</label>
-        <span>{{node?.recurrenceValue}}</span>
-    </div>
-
-    <div>
-        <label>Target</label>
-        <span>{{node?.target}}</span>
-    </div>
-
-    <div>
-        <label>Progress</label>
-        <span>{{node?.progress}}</span>
+            <div class="col-lg-3">
+                <label>Progress</label>
+                <span>{{node?.progress}}</span>
+            </div>
+        </div>
     </div>
 </div>
 

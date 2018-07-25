@@ -1,1 +1,14 @@
-<goal-tree-node [node]="root"></goal-tree-node>
+<div class="row">
+    <div class="col-xs-6">
+        {{root?.startDate}}
+    </div>
+    <div class="col-xs-6">
+        {{root?.endDate}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <goal-tree-node [node]="root"></goal-tree-node>
+    </div>
+</div>
