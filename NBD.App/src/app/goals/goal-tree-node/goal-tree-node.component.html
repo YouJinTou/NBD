@@ -1,23 +1,26 @@
 <div [ngStyle]="getProgressBar()" class="row goal-box">
     <div class="col-xs-12">
         <div class="row">
-            <div class="col-lg-4">
-                <h3>{{node?.title}}</h3>
-                <div *ngIf="showAddForm">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-6">{{node?.title}}</div>
+                    <div *ngIf="node?.startDate != null" class="col-xs-6">
+                        <div>{{node?.startDate | date: 'MMM dd, yyyy'}}</div>
+                        -
+                        <div>{{node?.endDate | date: 'MMM dd, yyyy'}}</div>
+                    </div>
+                </div>
+
+                <div *ngIf="showAddForm" clas="row">
                     <goal-form [parent]="node"></goal-form>
                 </div>
-                <button (click)="onAddClick()">{{addFormToggleText}}</button>
-            </div>
 
-            <div class="col-lg-8">
-                <span>{{node?.startDate | date: 'MMM dd, yyyy'}}</span>
-                -
-                <span>{{node?.endDate | date: 'MMM dd, yyyy'}}</span>
+                <button (click)="onAddClick()">{{addFormToggleText}}</button>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-xs-12">
                 <span>{{node?.recurrenceType | recurrence: node?.recurrenceValue}}</span>
             </div>
         </div>
