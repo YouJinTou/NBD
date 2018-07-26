@@ -9,6 +9,7 @@ import { GoalFormComponent } from './goals/goal-form/goal-form.component';
 import { GoalTreeComponent } from './goals/goal-tree/goal-tree.component';
 import { GoalTreeNodeComponent } from './goals/goal-tree-node/goal-tree-node.component';
 import { GoalsService } from './goals/goals.service';
+import { RecurrencePipe } from './pipes/recurrence.pipe';
 
 const appRoutes: Routes = [
   { path: 'tree', component: GoalFormComponent },
@@ -20,7 +21,8 @@ const appRoutes: Routes = [
     AppComponent,
     GoalFormComponent,
     GoalTreeComponent,
-    GoalTreeNodeComponent
+    GoalTreeNodeComponent,
+    RecurrencePipe
   ],
   imports: [
     BrowserModule,

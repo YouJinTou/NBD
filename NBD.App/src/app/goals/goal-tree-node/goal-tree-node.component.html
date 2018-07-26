@@ -11,30 +11,14 @@
 
             <div class="col-lg-8">
                 <span>{{node?.startDate | date: 'MMM dd, yyyy'}}</span>
-                 - 
+                -
                 <span>{{node?.endDate | date: 'MMM dd, yyyy'}}</span>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-lg-3">
-                <label>Type</label>
-                <span>{{node?.recurrenceType}}</span>
-            </div>
-
-            <div class="col-lg-3">
-                <label>Value</label>
-                <span>{{node?.recurrenceValue}}</span>
-            </div>
-
-            <div class="col-lg-3">
-                <label>Target</label>
-                <span>{{node?.target}}</span>
-            </div>
-
-            <div class="col-lg-3">
-                <label>Progress</label>
-                <span>{{node?.progress}}</span>
+            <div class="col-lg-6">
+                <span>{{node?.recurrenceType | recurrence: node?.recurrenceValue}}</span>
             </div>
         </div>
     </div>
