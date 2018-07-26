@@ -9,14 +9,10 @@
                 <button (click)="onAddClick()">{{addFormToggleText}}</button>
             </div>
 
-            <div class="col-lg-4">
-                <label>Start</label>
-                <span>{{node?.startDate}}</span>
-            </div>
-
-            <div class="col-lg-4">
-                <label>End</label>
-                <span>{{node?.endDate}}</span>
+            <div class="col-lg-8">
+                <span>{{node?.startDate | date: 'MMM dd, yyyy'}}</span>
+                 - 
+                <span>{{node?.endDate | date: 'MMM dd, yyyy'}}</span>
             </div>
         </div>
 
