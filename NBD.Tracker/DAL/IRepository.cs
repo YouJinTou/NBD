@@ -10,6 +10,8 @@ namespace NBD.Tracker.DAL
 
         Task AddAsync(T entity);
 
+        Task EditAsync(T entity);
+
         IEnumerable<T> Where(Func<T, bool> predicate);
     }
 }

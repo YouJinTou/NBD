@@ -27,6 +27,13 @@ namespace NBD.Tracker.DAL
             await this.context.SaveChangesAsync();
         }
 
+        public async Task EditAsync(T entity)
+        {
+            this.context.Entry(entity).State = EntityState.Modified;
+
+            await this.context.SaveChangesAsync();
+        }
+
         public IEnumerable<T> Where(Func<T, bool> predicate)
         {
             return this.context.Set<T>().Where(predicate).ToList();

@@ -38,7 +38,7 @@ namespace NBD.Tracker.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return StatusCode(500, ex);
+                    return StatusCode(500, ex.Message);
                 }
             });
         }
@@ -62,7 +62,32 @@ namespace NBD.Tracker.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("progress")]
+        public async Task<IActionResult> MakeProgressAsync([FromBody]ProgressBindingModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(model);
+                }
+
+                var goal = await this.goals.GetAsync(model.GoalId);
+
+                goal.MakeProgress(model.Progress);
+
+                await this.goals.EditAsync(goal);
+
+                return Ok(goal);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
             }
         }
     }
