@@ -77,7 +77,8 @@ namespace NBD.Tracker.Controllers
                     return BadRequest(model);
                 }
 
-                var goal = await this.goals.GetAsync(model.GoalId);
+                var goals = this.goals.Where(g => g.Id == model.GoalId);
+                var goal = goals.FirstOrDefault(mg => mg.Id == model.GoalId);
 
                 goal.MakeProgress(model.Progress);
 
