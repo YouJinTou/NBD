@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace NBD.SDK
 {
@@ -54,8 +55,17 @@ namespace NBD.SDK
                 throw new ArgumentException("Progress cannot be 0.");
             }
 
+            var progress = this.Progress + chunk;
+            var isReached = (this.Target == null) ? true : progress >= this.Target;
+
+            if (isReached && !this.SubGoals.All(sg => sg.IsReached))
+            {
+                throw new InvalidOperationException(
+                    "Cannot complete goal before all of its subgoals are reached.");
+            }
+
             this.Progress += chunk;
-            this.IsReached = (this.Target == null) ? true : this.Progress >= this.Target;
+            this.IsReached = isReached;
         }
 
         public void AddSubGoal(Goal goal)
