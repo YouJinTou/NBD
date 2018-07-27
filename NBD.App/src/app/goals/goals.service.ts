@@ -8,7 +8,7 @@ import { Goal } from './goal';
 
 @Injectable()
 export class GoalsService {
-    private readonly baseEndpoint = 'http://localhost:50401/api/';
+    private readonly baseEndpoint = 'http://localhost:50401/api';
 
     constructor(private http: HttpClient) { }
 
@@ -22,5 +22,15 @@ export class GoalsService {
         var endpoint = this.baseEndpoint + '/goals';
 
         return this.http.post<Goal>(endpoint, goal);
+    }
+
+    makeProgress(id: string, progress: number): Observable<Goal> {
+        var endpoint = this.baseEndpoint + '/goals/progress';
+        var body = {
+            goalId: id,
+            progress: progress == null ? 1 : progress
+        };
+        
+        return this.http.post<Goal>(endpoint, body);
     }
 }

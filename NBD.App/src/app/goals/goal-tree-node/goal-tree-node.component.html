@@ -15,7 +15,18 @@
                     <goal-form [parent]="node"></goal-form>
                 </div>
 
-                <button (click)="onAddClick()">{{addFormToggleText}}</button>
+                <div *ngIf="!node?.isReached" class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <button (click)="onAddClick()">{{addFormToggleText}}</button>
+                        </div>
+
+                        <div class="row">
+                            <input #progressField *ngIf="showProgressInputField" type="text" placeholder="Progress" />
+                            <button (click)="onMakeProgressClick(progressField?.value)">{{makeProgressText}}</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
