@@ -55,7 +55,7 @@ namespace NBD.SDK
             }
 
             this.Progress += chunk;
-            this.IsReached = this.Progress >= this.Target;
+            this.IsReached = (this.Target == null) ? true : this.Progress >= this.Target;
         }
 
         public void AddSubGoal(Goal goal)
