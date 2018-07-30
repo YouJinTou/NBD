@@ -1,35 +1,33 @@
-<h2>Goal</h2>
+<div class="goal-form">
+    <h2>Goal</h2>
+    
+    <form (ngSubmit)="onSubmit()" #addGoalForm="ngForm">
+        <div>
+            <input [(ngModel)]="goal.title" name="title" placeholder="Title" id="title" type="text" required />
+        </div>
 
-<form (ngSubmit)="onSubmit()" #addGoalForm="ngForm">
-    <div>
-        <label for="title">Title</label>
-        <input [(ngModel)]="goal.title" name="title" id="title" type="text" required />
-    </div>
+        <div>
+            <input [(ngModel)]="goal.startDate" name="startDate" placeholder="Start date" id="startDate" type="text" required />
+        </div>
 
-    <div>
-        <label for="startDate">Start date</label>
-        <input [(ngModel)]="goal.startDate" name="startDate" id="startDate" type="text" required />
-    </div>
+        <div>
+            <input [(ngModel)]="goal.endDate" name="endDate" placeholder="End date" id="endDate" type="text" required />
+        </div>
 
-    <div>
-        <label for="endDate">End date</label>
-        <input [(ngModel)]="goal.endDate" name="endDate" id="endDate" type="text" required />
-    </div>
+        <div>
+            <input [(ngModel)]="goal.recurrenceType" name="recurrenceType" placeholder="Recurrence type" id="recurrenceType" type="text"
+                required />
+        </div>
 
-    <div>
-        <label for="recurrenceType">Recurrence type</label>
-        <input [(ngModel)]="goal.recurrenceType" name="recurrenceType" id="recurrenceType" type="text" required />
-    </div>
+        <div>
+            <input [(ngModel)]="goal.recurrenceValue" name="recurrenceValue" placeholder="Recurrence value" id="recurrenceValue" type="text"
+                required />
+        </div>
 
-    <div>
-        <label for="recurrenceValue">Recurrence value</label>
-        <input [(ngModel)]="goal.recurrenceValue" name="recurrenceValue" id="recurrenceValue" type="text" required />
-    </div>
+        <div>
+            <input [(ngModel)]="goal.target" name="target" id="target" placeholder="Target" type="text" required />
+        </div>
 
-    <div>
-        <label for="target">Target</label>
-        <input [(ngModel)]="goal.target" name="target" id="target" type="text" required />
-    </div>
-
-    <input type="submit" value="Add goal" />
-</form>
+        <input type="submit" value="Add goal" />
+    </form>
+</div>

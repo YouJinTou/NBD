@@ -1,10 +1,10 @@
 <div [ngStyle]="getProgressBar()" class="row goal-box">
-    <div class="col-xs-12">
+    <div class="col-md-12">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-md-12">
                 <div class="row">
-                    <div class="col-xs-6">{{node?.title}}</div>
-                    <div *ngIf="node?.startDate != null" class="col-xs-6">
+                    <div class="col-md-6">{{node?.title}}</div>
+                    <div *ngIf="node?.startDate != null" class="col-md-6">
                         <div>{{node?.startDate | date: 'MMM dd, yyyy'}}</div>
                         -
                         <div>{{node?.endDate | date: 'MMM dd, yyyy'}}</div>
@@ -16,7 +16,7 @@
                 </div>
 
                 <div *ngIf="!node?.isReached" class="row">
-                    <div class="col-xs-12">
+                    <div class="col-md-12">
                         <div class="row">
                             <button (click)="onAddClick()">{{addFormToggleText}}</button>
                         </div>
@@ -31,7 +31,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-md-12">
                 <span>{{node?.recurrenceType | recurrence: node?.recurrenceValue}}</span>
             </div>
         </div>
