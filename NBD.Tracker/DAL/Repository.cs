@@ -34,6 +34,16 @@ namespace NBD.Tracker.DAL
             await this.context.SaveChangesAsync();
         }
 
+        public async Task DeleteManyAsync(IEnumerable<T> entities)
+        {
+            foreach (var entity in entities)
+            {
+                this.context.Entry(entity).State = EntityState.Deleted;
+            }
+
+            await this.context.SaveChangesAsync();
+        }
+
         public IEnumerable<T> Where(Func<T, bool> predicate)
         {
             return this.context.Set<T>().Where(predicate).ToList();

@@ -12,6 +12,8 @@ namespace NBD.Tracker.DAL
 
         Task EditAsync(T entity);
 
+        Task DeleteManyAsync(IEnumerable<T> entities);
+
         IEnumerable<T> Where(Func<T, bool> predicate);
     }
 }

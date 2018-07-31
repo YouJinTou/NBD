@@ -71,6 +71,29 @@ namespace NBD.Tracker.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteGoalAsync(Guid id)
+        {
+            try
+            {
+                var goal = this.goals.Where(g => g.Id == id).FirstOrDefault();
+
+                if (goal == null)
+                {
+                    return NotFound(goal);
+                }
+
+                await this.goals.DeleteManyAsync(goal.GetTree());
+
+                return Ok(goal);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost]
         [Route("progress")]
         public async Task<IActionResult> MakeProgressAsync([FromBody]ProgressBindingModel model)
