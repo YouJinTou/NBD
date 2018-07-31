@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({ name: 'recurrence' })
 export class RecurrencePipe implements PipeTransform {
     transform(value: number, type: number): string {
-        var isPlural = value != 0;
+        var isPlural = value != 1;
 
         switch (type) {
             case 0: return "Once";
