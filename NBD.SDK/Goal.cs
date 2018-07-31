@@ -88,5 +88,31 @@ namespace NBD.SDK
 
             this.SubGoals.Add(goal);
         }
+
+        public IEnumerable<Goal> GetTree()
+        {
+            var tree = new List<Goal> { this };
+
+            this.GetTreeRecursive(this, tree);
+
+            return tree;
+        }
+
+        private IEnumerable<Goal> GetTreeRecursive(Goal root, ICollection<Goal> goals)
+        {
+            if (root.SubGoals == null || root.SubGoals.Count == 0)
+            {
+                return goals;
+            }
+
+            foreach (var child in root.SubGoals)
+            {
+                goals.Add(child);
+
+                this.GetTreeRecursive(child, goals);
+            }
+
+            return goals;
+        }
     }
 }
