@@ -30,9 +30,14 @@ namespace NBD.Tracker.Controllers
             {
                 try
                 {
-                    var goals = this.goals.Where(g => g.Id == id);
-                    var modelGoals = Mapper.Map<IEnumerable<Goal>, IEnumerable<GoalViewModel>>(goals);
-                    var modelRoot = modelGoals.FirstOrDefault(mg => mg.Id == id);
+                    var goal = this.goals.Where(g => g.Id == id).FirstOrDefault();
+
+                    if (goal == null)
+                    {
+                        return NotFound(goal);
+                    }
+
+                    var modelRoot = Mapper.Map<Goal, GoalViewModel>(goal);
 
                     return Ok(modelRoot);
                 }
@@ -77,8 +82,12 @@ namespace NBD.Tracker.Controllers
                     return BadRequest(model);
                 }
 
-                var goals = this.goals.Where(g => g.Id == model.GoalId);
-                var goal = goals.FirstOrDefault(mg => mg.Id == model.GoalId);
+                var goal = this.goals.Where(g => g.Id == model.GoalId).FirstOrDefault();
+
+                if (goal == null)
+                {
+                    return NotFound(goal);
+                }
 
                 goal.MakeProgress(model.Progress);
 
