@@ -24,6 +24,12 @@ export class GoalsService {
         return this.http.post<Goal>(endpoint, goal);
     }
 
+    deleteGoal(id: string) {
+        var endpoint = this.baseEndpoint + '/goals/' + id;
+
+        return this.http.delete(endpoint);
+    }
+
     makeProgress(id: string, progress: number): Observable<Goal> {
         var endpoint = this.baseEndpoint + '/goals/progress';
         var body = {

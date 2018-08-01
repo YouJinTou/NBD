@@ -26,15 +26,18 @@
                 <div *ngIf="!node?.isReached" class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-3">
                                 <button (click)="onAddClick()">{{addFormToggleText}}</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button (click)="onDeleteClick()">Delete</button>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12">
-                                <input #progressField *ngIf="showProgressInputField" type="text" placeholder="Progress" />
-                                <button (click)="onMakeProgressClick(progressField?.value)">{{makeProgressText}}</button>
+                                <input [(ngModel)]="progressFieldValue" *ngIf="showProgressInputField" type="text" placeholder="Progress" />
+                                <button (click)="onMakeProgressClick()">{{makeProgressText}}</button>
                             </div>
                         </div>
                     </div>
