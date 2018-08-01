@@ -23,6 +23,12 @@ export class GoalsService {
         return this.http.post<Goal>(endpoint, goal);
     }
 
+    editGoal(goal: Goal): Observable<Goal> {
+        var endpoint = this.baseEndpoint + '/goals/' + goal.id;
+
+        return this.http.put<Goal>(endpoint, goal);
+    }
+
     deleteGoal(id: string) {
         var endpoint = this.baseEndpoint + '/goals/' + id;
 

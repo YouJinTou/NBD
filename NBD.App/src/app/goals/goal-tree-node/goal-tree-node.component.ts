@@ -11,15 +11,17 @@ import { GoalsService } from '../goals.service';
 })
 export class GoalTreeNodeComponent implements OnInit {
   @Input() node: Goal;
-  private showAddForm: boolean;
+  private showForm: boolean;
   private showProgressInputField: boolean;
   private addFormToggleText: string;
+  private editFormToggleText: string;
   private makeProgressText: string;
   private progress: number;
   private progressFieldValue: number;
 
   constructor(private goalsService: GoalsService, private sanitizer: DomSanitizer) {
     this.addFormToggleText = 'Add';
+    this.editFormToggleText = 'Edit';
   }
 
   ngOnInit() {
@@ -29,8 +31,13 @@ export class GoalTreeNodeComponent implements OnInit {
   }
 
   onAddClick() {
-    this.showAddForm = !this.showAddForm;
-    this.addFormToggleText = this.showAddForm ? 'Close' : 'Add';
+    this.showForm = !this.showForm;
+    this.addFormToggleText = this.showForm ? 'Close' : 'Add';
+  }
+
+  onEditClick() {
+    this.showForm = !this.showForm;
+    this.editFormToggleText = this.showForm ? 'Close' : 'Edit';
   }
 
   onDeleteClick() {

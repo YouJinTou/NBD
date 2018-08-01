@@ -19,7 +19,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="showAddForm" clas="row">
+                <div *ngIf="showForm" clas="row">
                     <goal-form [parent]="node"></goal-form>
                 </div>
 
@@ -29,6 +29,11 @@
                             <div class="col-md-3">
                                 <button (click)="onAddClick()">{{addFormToggleText}}</button>
                             </div>
+
+                            <div class="col-md-3">
+                                <button (click)="onEditClick()">{{editFormToggleText}}</button>
+                            </div>
+
                             <div class="col-md-3">
                                 <button (click)="onDeleteClick()">Delete</button>
                             </div>
