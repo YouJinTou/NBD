@@ -94,6 +94,36 @@ namespace NBD.Tracker.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> EditGoalAsync([FromBody]GoalEditModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(model);
+                }
+
+                var goal = this.goals.Where(g => g.Id == model.Id).FirstOrDefault();
+
+                if (goal == null)
+                {
+                    return NotFound(goal);
+                }
+
+                var editedGoal = Mapper.Map<GoalEditModel, Goal>(model);
+
+                await this.goals.EditAsync(editedGoal);
+
+                return Ok(editedGoal);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost]
         [Route("progress")]
         public async Task<IActionResult> MakeProgressAsync([FromBody]ProgressBindingModel model)

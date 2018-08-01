@@ -12,6 +12,7 @@ namespace NBD.Tracker.Configuration
             {
                 cfg.CreateMap<Goal, GoalViewModel>();
                 cfg.CreateMap<GoalBindingModel, Goal>();
+                cfg.CreateMap<GoalEditModel, Goal>();
             });
         }
     }
