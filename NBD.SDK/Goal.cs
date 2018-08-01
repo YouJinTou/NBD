@@ -58,10 +58,13 @@ namespace NBD.SDK
             var progress = this.Progress + chunk;
             var isReached = (this.Target == null) ? true : progress >= this.Target;
 
-            if (isReached && !this.SubGoals.All(sg => sg.IsReached))
+            if (this.SubGoals != null)
             {
-                throw new InvalidOperationException(
-                    "Cannot complete goal before all of its subgoals are reached.");
+                if (isReached && !this.SubGoals.All(sg => sg.IsReached))
+                {
+                    throw new InvalidOperationException(
+                        "Cannot complete goal before all of its subgoals are reached.");
+                }
             }
 
             this.Progress += chunk;
