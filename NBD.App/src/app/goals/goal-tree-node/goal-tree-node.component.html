@@ -20,7 +20,7 @@
                 </div>
 
                 <div *ngIf="showForm" clas="row">
-                    <goal-form [parent]="node"></goal-form>
+                    <goal-form [parent]="node" [isEdit]="lastClickedEdit"></goal-form>
                 </div>
 
                 <div *ngIf="!node?.isReached" class="row">

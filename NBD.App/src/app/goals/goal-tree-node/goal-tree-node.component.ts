@@ -18,6 +18,7 @@ export class GoalTreeNodeComponent implements OnInit {
   private makeProgressText: string;
   private progress: number;
   private progressFieldValue: number;
+  private lastClickedEdit: boolean;
 
   constructor(private goalsService: GoalsService, private sanitizer: DomSanitizer) {
     this.addFormToggleText = 'Add';
@@ -33,11 +34,13 @@ export class GoalTreeNodeComponent implements OnInit {
   onAddClick() {
     this.showForm = !this.showForm;
     this.addFormToggleText = this.showForm ? 'Close' : 'Add';
+    this.lastClickedEdit = false;
   }
 
   onEditClick() {
     this.showForm = !this.showForm;
     this.editFormToggleText = this.showForm ? 'Close' : 'Edit';
+    this.lastClickedEdit = true;
   }
 
   onDeleteClick() {
