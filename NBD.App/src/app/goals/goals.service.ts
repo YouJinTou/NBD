@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs';
@@ -7,9 +7,10 @@ import { Goal } from './goal';
 
 @Injectable()
 export class GoalsService {
-    private readonly baseEndpoint = 'http://localhost:50401/api';
-
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient, 
+        @Inject('BASE_TRACKER_API_URL') private baseEndpoint: string) {
+    }
 
     getGoal(id: string): Observable<Goal> {
         var endpoint = this.baseEndpoint + '/goals/' + id;
@@ -41,7 +42,7 @@ export class GoalsService {
             goalId: id,
             progress: progress == null ? 1 : progress
         };
-        
+
         return this.http.post<Goal>(endpoint, body);
     }
 }

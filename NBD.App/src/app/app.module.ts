@@ -30,7 +30,11 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [HttpClient, GoalsService],
+  providers: [
+    { provide: 'BASE_TRACKER_API_URL', useValue: 'http://localhost:50401/api' },
+    HttpClient, 
+    GoalsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
