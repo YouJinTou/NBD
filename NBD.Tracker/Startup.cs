@@ -31,7 +31,8 @@ namespace NBD.Tracker
             {
                 p.WithOrigins(Configuration.GetSection("allowedOrigins").Get<string[]>())
                 .AllowAnyMethod()
-                .AllowAnyHeader();
+                .AllowAnyHeader()
+                .AllowCredentials();
             }));
             services.AddDbContext<TrackerContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TrackerDb")));
