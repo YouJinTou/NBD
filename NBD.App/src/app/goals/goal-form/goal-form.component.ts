@@ -34,9 +34,13 @@ export class GoalFormComponent implements OnInit {
         if (this.isEdit) {
             this.goalsService.editGoal(this.goal).subscribe((r: Goal) => {
                 location.reload();
+            }, error => {
+                location.reload();
             });
         } else {
             this.goalsService.addGoal(this.goal).subscribe((r: Goal) => {
+                location.reload();
+            }, error => {
                 location.reload();
             });
         }
