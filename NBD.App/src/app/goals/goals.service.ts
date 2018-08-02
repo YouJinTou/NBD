@@ -15,25 +15,25 @@ export class GoalsService {
     getGoal(id: string): Observable<Goal> {
         var endpoint = this.baseEndpoint + '/goals/' + id;
 
-        return this.http.get<Goal>(endpoint);
+        return this.http.get<Goal>(endpoint, { withCredentials: true });
     }
 
     addGoal(goal: Goal): Observable<Goal> {
         var endpoint = this.baseEndpoint + '/goals';
 
-        return this.http.post<Goal>(endpoint, goal);
+        return this.http.post<Goal>(endpoint, goal, { withCredentials: true });
     }
 
     editGoal(goal: Goal): Observable<Goal> {
         var endpoint = this.baseEndpoint + '/goals/' + goal.id;
 
-        return this.http.put<Goal>(endpoint, goal);
+        return this.http.put<Goal>(endpoint, goal, { withCredentials: true });
     }
 
     deleteGoal(id: string) {
         var endpoint = this.baseEndpoint + '/goals/' + id;
 
-        return this.http.delete(endpoint);
+        return this.http.delete(endpoint, { withCredentials: true });
     }
 
     makeProgress(id: string, progress: number): Observable<Goal> {
@@ -43,6 +43,6 @@ export class GoalsService {
             progress: progress == null ? 1 : progress
         };
 
-        return this.http.post<Goal>(endpoint, body);
+        return this.http.post<Goal>(endpoint, body, { withCredentials: true });
     }
 }
