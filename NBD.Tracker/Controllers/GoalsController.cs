@@ -158,5 +158,29 @@ namespace NBD.Tracker.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpPut]
+        [Route("reorder")]
+        public async Task<IActionResult> ReorderTreeAsync([FromBody]ReorderModel model)
+        {
+            try
+            {
+                if (!(ModelState.IsValid && await model.IsValidReorderAsync(this.goals)))
+                {
+                    return BadRequest(model);
+                }
+
+                var goal = await this.goals.GetAsync(model.GoalId);
+                goal.ParentId = model.TargetParentId;
+
+                await this.goals.EditAsync(goal);
+
+                return Ok(goal);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }
