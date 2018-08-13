@@ -114,6 +114,7 @@ namespace NBD.Tracker.Controllers
                 goal.Target = model.Target;
                 goal.StartDate = model.StartDate;
                 goal.EndDate = model.EndDate;
+                goal.Description = model.Description;
                 goal.Title = model.Title;
                 goal.RecurrenceType = model.RecurrenceType;
                 goal.RecurrenceValue = model.RecurrenceValue;
