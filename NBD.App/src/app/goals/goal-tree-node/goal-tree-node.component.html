@@ -1,55 +1,59 @@
-<div [ngStyle]="getProgressBar()" class="row goal-box">
-    <div class="col-md-12">
-        <div class="row">
+<ul class="tree-list">
+    <li>
+        <div [ngStyle]="getProgressBar()" class="row goal-box">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-6">{{node?.title}}</div>
-                    <div *ngIf="node?.startDate != null" class="col-md-6">
-                        <div>
-                            <span>{{node?.startDate | date: 'MMM dd, yyyy'}}</span>
-                            -
-                            <span>{{node?.endDate | date: 'MMM dd, yyyy'}}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span>{{node?.recurrenceValue | recurrence: node?.recurrenceType}}</span>
-                    </div>
-                </div>
-
-                <div *ngIf="showForm" clas="row">
-                    <goal-form [parent]="node" [isEdit]="lastClickedEdit"></goal-form>
-                </div>
-
-                <div *ngIf="!node?.isReached" class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-3">
-                                <button (click)="onAddClick()">{{addFormToggleText}}</button>
-                            </div>
-
-                            <div class="col-md-3">
-                                <button (click)="onEditClick()">{{editFormToggleText}}</button>
-                            </div>
-
-                            <div class="col-md-3">
-                                <button (click)="onDeleteClick()">Delete</button>
+                            <div class="col-md-6">{{node?.title}}</div>
+                            <div *ngIf="node?.startDate != null" class="col-md-6">
+                                <div>
+                                    <span>{{node?.startDate | date: 'MMM dd, yyyy'}}</span>
+                                    -
+                                    <span>{{node?.endDate | date: 'MMM dd, yyyy'}}</span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12">
-                                <input [(ngModel)]="progressFieldValue" *ngIf="showProgressInputField" type="text" placeholder="Progress" />
-                                <button (click)="onMakeProgressClick()">{{makeProgressText}}</button>
+                                <span>{{node?.recurrenceValue | recurrence: node?.recurrenceType}}</span>
+                            </div>
+                        </div>
+
+                        <div *ngIf="showForm" clas="row">
+                            <goal-form [parent]="node" [isEdit]="lastClickedEdit"></goal-form>
+                        </div>
+
+                        <div *ngIf="!node?.isReached" class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <button (click)="onAddClick()">{{addFormToggleText}}</button>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <button (click)="onEditClick()">{{editFormToggleText}}</button>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <button (click)="onDeleteClick()">Delete</button>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input [(ngModel)]="progressFieldValue" *ngIf="showProgressInputField" type="text" placeholder="Progress" />
+                                        <button (click)="onMakeProgressClick()">{{makeProgressText}}</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<goal-tree-node *ngFor="let child of node?.subGoals" [node]="child"></goal-tree-node>
+        <goal-tree-node *ngFor="let child of node?.subGoals" [node]="child"></goal-tree-node>
+    </li>
+</ul>

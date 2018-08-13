@@ -3,3 +3,8 @@
     border-radius: 1px;
     background-color: lightsalmon;
 }
+
+.tree-list {
+    list-style-position: inside;
+    padding-left: 10px;
+}
