@@ -16,6 +16,8 @@ namespace NBD.Tracker.Models
 
         public DateTime? EndDate { get; set; }
 
+        public string Description { get; set; }
+
         public RecurrenceType RecurrenceType { get; set; }
 
         public uint RecurrenceValue { get; set; }

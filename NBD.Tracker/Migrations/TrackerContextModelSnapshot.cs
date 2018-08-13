@@ -24,6 +24,8 @@ namespace NBD.Tracker.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Description");
+
                     b.Property<DateTime?>("EndDate");
 
                     b.Property<bool>("IsReached");

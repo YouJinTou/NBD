@@ -16,6 +16,7 @@ namespace NBD.Tracker.Migrations
                     Title = table.Column<string>(maxLength: 512, nullable: false),
                     StartDate = table.Column<DateTime>(nullable: true),
                     EndDate = table.Column<DateTime>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     RecurrenceType = table.Column<int>(nullable: false),
                     RecurrenceValue = table.Column<long>(nullable: false),
                     Target = table.Column<int>(nullable: true),

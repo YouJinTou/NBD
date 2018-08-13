@@ -10,7 +10,7 @@ using NBD.Tracker.DAL;
 namespace NBD.Tracker.Migrations
 {
     [DbContext(typeof(TrackerContext))]
-    [Migration("20180716131715_InitialMigration")]
+    [Migration("20180813075420_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,8 @@ namespace NBD.Tracker.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
 
                     b.Property<DateTime?>("EndDate");
 

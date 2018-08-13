@@ -33,6 +33,8 @@ namespace NBD.SDK
         // TO-DO [AfterDateTimeAttribute]
         public DateTime? EndDate { get; set; }
 
+        public string Description { get; set; }
+
         [Required]
         public RecurrenceType RecurrenceType { get; set; }
 
