@@ -40,7 +40,7 @@ export class GoalsService {
         var endpoint = this.baseEndpoint + '/goals/progress';
         var body = {
             goalId: id,
-            progress: progress == null ? 1 : progress
+            progress: progress ? 1 : progress
         };
 
         return this.http.post<Goal>(endpoint, body, { withCredentials: true });
