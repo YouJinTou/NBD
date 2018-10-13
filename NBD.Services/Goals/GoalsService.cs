@@ -35,5 +35,12 @@ namespace NBD.Services.Goals
         {
             await this.goals.AddAsync(goal);
         }
+
+        public async Task DeleteCascadingAsync(Guid id)
+        {
+            var goal = await this.GetGoalAsync(id);
+
+            await this.goals.DeleteManyAsync(goal.GetTree());
+        }
     }
 }

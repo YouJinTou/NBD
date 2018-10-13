@@ -72,16 +72,13 @@ namespace NBD.Tracker.Controllers
         {
             try
             {
-                var goal = this.goals.Where(g => g.Id == id).FirstOrDefault();
+                await this.goalsService.DeleteCascadingAsync(id);
 
-                if (goal == null)
-                {
-                    return NotFound(goal);
-                }
-
-                await this.goals.DeleteManyAsync(goal.GetTree());
-
-                return Ok(goal);
+                return Ok();
+            }
+            catch (GoalNotFoundException gnfe)
+            {
+                return NotFound(gnfe.Message);
             }
             catch (Exception ex)
             {

@@ -9,5 +9,7 @@ namespace NBD.Services.Goals
         Task<Goal> GetGoalAsync(Guid id);
 
         Task AddGoalAsync(Goal goal);
+
+        Task DeleteCascadingAsync(Guid id);
     }
 }
