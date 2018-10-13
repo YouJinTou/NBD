@@ -13,5 +13,7 @@ namespace NBD.Services.Goals
         Task DeleteCascadingAsync(Guid id);
 
         Task<Goal> EditGoalAsync(Goal goal);
+
+        Task<Goal> MakeProgressAsync(Guid id, uint chunk);
     }
 }

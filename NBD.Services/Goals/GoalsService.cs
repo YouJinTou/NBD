@@ -58,5 +58,14 @@ namespace NBD.Services.Goals
 
             return currentGoal;
         }
+
+        public async Task<Goal> MakeProgressAsync(Guid id, uint chunk)
+        {
+            var goal = await this.GetGoalAsync(id);
+
+            goal.MakeProgress(chunk);
+
+            return await this.EditGoalAsync(goal);
+        }
     }
 }

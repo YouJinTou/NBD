@@ -124,18 +124,14 @@ namespace NBD.Tracker.Controllers
                     return BadRequest(model);
                 }
 
-                var goal = this.goals.Where(g => g.Id == model.GoalId).FirstOrDefault();
+                var progressedGoal =
+                    await this.goalsService.MakeProgressAsync(model.GoalId, model.Progress);
 
-                if (goal == null)
-                {
-                    return NotFound(goal);
-                }
-
-                goal.MakeProgress(model.Progress);
-
-                await this.goals.EditAsync(goal);
-
-                return Ok(goal);
+                return Ok(progressedGoal);
+            }
+            catch (GoalNotFoundException gnfe)
+            {
+                return NotFound(gnfe.Message);
             }
             catch (Exception ex)
             {
