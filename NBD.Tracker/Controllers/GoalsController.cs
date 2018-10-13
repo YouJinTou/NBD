@@ -49,14 +49,14 @@ namespace NBD.Tracker.Controllers
         {
             try
             {
-                if (!(ModelState.IsValid && await model.IsWithinParentDatesAsync(this.goals)))
+                if (!(ModelState.IsValid && await model.IsWithinParentDatesAsync(this.goalsService)))
                 {
                     return BadRequest(model);
                 }
 
                 var goal = Mapper.Map<GoalBindingModel, Goal>(model);
 
-                await this.goals.AddAsync(goal);
+                await this.goalsService.AddGoalAsync(goal);
 
                 return Ok(goal);
             }

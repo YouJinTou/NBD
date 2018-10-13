@@ -30,5 +30,10 @@ namespace NBD.Services.Goals
                 return goal;
             });
         }
+
+        public async Task AddGoalAsync(Goal goal)
+        {
+            await this.goals.AddAsync(goal);
+        }
     }
 }

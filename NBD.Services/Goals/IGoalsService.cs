@@ -7,5 +7,7 @@ namespace NBD.Services.Goals
     public interface IGoalsService
     {
         Task<Goal> GetGoalAsync(Guid id);
+
+        Task AddGoalAsync(Goal goal);
     }
 }
