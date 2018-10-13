@@ -22,6 +22,10 @@ export class GoalFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (!this.parent) {
+            return;
+        }
+
         this.goal.parentId = this.parent.id;
 
         if (this.isEdit) {
