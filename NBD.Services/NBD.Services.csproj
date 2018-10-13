@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NBD\NBD.SDK\NBD.SDK.csproj" />
+    <ProjectReference Include="..\NBD.DAL\NBD.DAL.csproj" />
+    <ProjectReference Include="..\NBD.SDK\NBD.SDK.csproj" />
   </ItemGroup>
 
 </Project>
