@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NBD.DAL\NBD.DAL.csproj" />
     <ProjectReference Include="..\NBD.SDK\NBD.SDK.csproj" />
+    <ProjectReference Include="..\NBD.Services\NBD.Services.csproj" />
   </ItemGroup>
 
 </Project>

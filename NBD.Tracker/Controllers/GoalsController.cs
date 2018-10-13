@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NBD.SDK;
-using NBD.DAL;
 using NBD.Tracker.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using NBD.Services.Goals;
+using NBD.Services.Core.Exceptions;
 
 namespace NBD.Tracker.Controllers
 {
@@ -14,37 +15,32 @@ namespace NBD.Tracker.Controllers
     [Route("api/[controller]")]
     public class GoalsController : Controller
     {
-        private readonly IRepository<Goal> goals;
+        private readonly IGoalsService goalsService;
 
-        public GoalsController(IRepository<Goal> goals)
+        public GoalsController(IGoalsService goalsService)
         {
-            this.goals = goals;
+            this.goalsService = goalsService;
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetGoalAsync(Guid id)
         {
-            return await Task.Run(() =>
+            try
             {
-                try
-                {
-                    var goal = this.goals.Where(g => g.Id == id).FirstOrDefault();
+                var goal = await this.goalsService.GetGoalAsync(id);
+                var model = Mapper.Map<Goal, GoalViewModel>(goal);
 
-                    if (goal == null)
-                    {
-                        return NotFound(goal);
-                    }
-
-                    var modelRoot = Mapper.Map<Goal, GoalViewModel>(goal);
-
-                    return Ok(modelRoot);
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, ex.Message);
-                }
-            });
+                return Ok(model);
+            }
+            catch (GoalNotFoundException gnfe)
+            {
+                return NotFound(gnfe.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPost]
