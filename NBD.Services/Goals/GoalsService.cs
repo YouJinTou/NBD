@@ -46,12 +46,6 @@ namespace NBD.Services.Goals
         public async Task<Goal> EditGoalAsync(Goal goal)
         {
             var currentGoal = await this.GetGoalAsync(goal.Id);
-
-            if (currentGoal == null)
-            {
-                throw new GoalNotFoundException(goal.Id.ToString());
-            }
-
             currentGoal.Target = goal.Target;
             currentGoal.StartDate = goal.StartDate;
             currentGoal.EndDate = goal.EndDate;
