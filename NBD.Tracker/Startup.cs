@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NBD.DAL;
 using NBD.SDK;
 using NBD.Tracker.Configuration;
-using NBD.Tracker.DAL;
 
 namespace NBD.Tracker
 {

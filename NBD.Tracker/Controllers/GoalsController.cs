@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NBD.SDK;
-using NBD.Tracker.DAL;
+using NBD.DAL;
 using NBD.Tracker.Models;
 using System;
 using System.Linq;

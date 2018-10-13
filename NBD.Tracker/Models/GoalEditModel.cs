@@ -1,6 +1,6 @@
 ﻿using NBD.SDK;
 using NBD.SDK.Attributes;
-using NBD.Tracker.DAL;
+using NBD.DAL;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
