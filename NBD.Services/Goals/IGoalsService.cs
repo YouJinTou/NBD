@@ -15,5 +15,7 @@ namespace NBD.Services.Goals
         Task<Goal> EditGoalAsync(Goal goal);
 
         Task<Goal> MakeProgressAsync(Guid id, uint chunk);
+
+        Task<Goal> ReorderTreeAsync(Guid movableId, Guid newParentId);
     }
 }

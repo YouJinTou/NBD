@@ -67,5 +67,13 @@ namespace NBD.Services.Goals
 
             return await this.EditGoalAsync(goal);
         }
+
+        public async Task<Goal> ReorderTreeAsync(Guid movableId, Guid newParentId)
+        {
+            var movable = await this.GetGoalAsync(movableId);
+            movable.ParentId = newParentId;
+
+            return await this.EditGoalAsync(movable);
+        }
     }
 }

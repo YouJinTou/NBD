@@ -2,12 +2,11 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NBD.SDK;
+using NBD.Services.Core.Exceptions;
+using NBD.Services.Goals;
 using NBD.Tracker.Models;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
-using NBD.Services.Goals;
-using NBD.Services.Core.Exceptions;
 
 namespace NBD.Tracker.Controllers
 {
@@ -145,17 +144,15 @@ namespace NBD.Tracker.Controllers
         {
             try
             {
-                if (!(ModelState.IsValid && await model.IsValidReorderAsync(this.goals)))
+                if (!(ModelState.IsValid && await model.IsValidReorderAsync(this.goalsService)))
                 {
                     return BadRequest(model);
                 }
 
-                var goal = await this.goals.GetAsync(model.GoalId);
-                goal.ParentId = model.TargetParentId;
+                var movedGoal = await this.goalsService.ReorderTreeAsync(
+                    model.GoalId, model.TargetParentId);
 
-                await this.goals.EditAsync(goal);
-
-                return Ok(goal);
+                return Ok(movedGoal);
             }
             catch (Exception ex)
             {
