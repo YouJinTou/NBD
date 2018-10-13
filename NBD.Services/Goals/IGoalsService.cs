@@ -11,5 +11,7 @@ namespace NBD.Services.Goals
         Task AddGoalAsync(Goal goal);
 
         Task DeleteCascadingAsync(Guid id);
+
+        Task<Goal> EditGoalAsync(Goal goal);
     }
 }

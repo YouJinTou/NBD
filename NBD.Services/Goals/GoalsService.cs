@@ -42,5 +42,27 @@ namespace NBD.Services.Goals
 
             await this.goals.DeleteManyAsync(goal.GetTree());
         }
+
+        public async Task<Goal> EditGoalAsync(Goal goal)
+        {
+            var currentGoal = await this.GetGoalAsync(goal.Id);
+
+            if (currentGoal == null)
+            {
+                throw new GoalNotFoundException(goal.Id.ToString());
+            }
+
+            currentGoal.Target = goal.Target;
+            currentGoal.StartDate = goal.StartDate;
+            currentGoal.EndDate = goal.EndDate;
+            currentGoal.Description = goal.Description;
+            currentGoal.Title = goal.Title;
+            currentGoal.RecurrenceType = goal.RecurrenceType;
+            currentGoal.RecurrenceValue = goal.RecurrenceValue;
+
+            await this.goals.EditAsync(currentGoal);
+
+            return currentGoal;
+        }
     }
 }

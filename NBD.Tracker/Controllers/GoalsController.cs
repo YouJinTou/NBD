@@ -92,29 +92,20 @@ namespace NBD.Tracker.Controllers
         {
             try
             {
-                if (!(ModelState.IsValid && await model.IsWithinParentDatesAsync(this.goals)))
+                if (!(ModelState.IsValid && await model.IsWithinParentDatesAsync(this.goalsService)))
                 {
                     return BadRequest(model);
                 }
 
-                var goal = this.goals.Where(g => g.Id == model.Id).FirstOrDefault();
+                var goal = Mapper.Map<GoalEditModel, Goal>(model);
 
-                if (goal == null)
-                {
-                    return NotFound(goal);
-                }
-
-                goal.Target = model.Target;
-                goal.StartDate = model.StartDate;
-                goal.EndDate = model.EndDate;
-                goal.Description = model.Description;
-                goal.Title = model.Title;
-                goal.RecurrenceType = model.RecurrenceType;
-                goal.RecurrenceValue = model.RecurrenceValue;
-
-                await this.goals.EditAsync(goal);
+                await this.goalsService.EditGoalAsync(goal);
 
                 return Ok(goal);
+            }
+            catch (GoalNotFoundException gnfe)
+            {
+                return NotFound(gnfe.Message);
             }
             catch (Exception ex)
             {
