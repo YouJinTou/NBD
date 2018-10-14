@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NBD.DAL;
 using NBD.SDK;
+using NBD.Services.Goals;
 using NBD.Tracker.Configuration;
 
 namespace NBD.Tracker
@@ -26,18 +27,20 @@ namespace NBD.Tracker
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(builder => builder.AddPolicy("UIPolicy", p =>
+            services.AddCors(options => options.AddPolicy("UIPolicy", p =>
             {
                 p.WithOrigins(Configuration.GetSection("allowedOrigins").Get<string[]>())
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-                .AllowCredentials();
+                .AllowCredentials()
+                .Build();
             }));
             services.AddMvc();
             services.AddDbContext<TrackerContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TrackerDb")));
             services.AddScoped<DbContext, TrackerContext>();
             services.AddScoped<IRepository<Goal>, Repository<Goal>>();
+            services.AddScoped<IGoalsService, GoalsService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
