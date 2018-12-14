@@ -45,4 +45,14 @@ export class GoalsService {
 
         return this.http.post<Goal>(endpoint, body, { withCredentials: true });
     }
+
+    reorderTree(id: string, targetParentId: string) : Observable<Goal> {
+        var endpoint = this.baseEndpoint + '/goals/' + id + '/reorder';
+        var body = {
+            goalId: id,
+            targetParentId: targetParentId
+        };
+
+        return this.http.put<Goal>(endpoint, { withCredentials: true });
+    }
 }
