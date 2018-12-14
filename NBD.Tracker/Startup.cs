@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NBD.DAL;
 using NBD.SDK;
 using NBD.Tracker.Configuration;
-using NBD.Tracker.DAL;
 
 namespace NBD.Tracker
 {
@@ -26,7 +26,6 @@ namespace NBD.Tracker
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
             services.AddCors(builder => builder.AddPolicy("UIPolicy", p =>
             {
                 p.WithOrigins(Configuration.GetSection("allowedOrigins").Get<string[]>())
@@ -34,6 +33,7 @@ namespace NBD.Tracker
                 .AllowAnyHeader()
                 .AllowCredentials();
             }));
+            services.AddMvc();
             services.AddDbContext<TrackerContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TrackerDb")));
             services.AddScoped<DbContext, TrackerContext>();
@@ -42,6 +42,8 @@ namespace NBD.Tracker
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("UIPolicy");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -50,8 +52,6 @@ namespace NBD.Tracker
             MapperConfig.RegisterMappings();
 
             app.UseMvc();
-
-            app.UseCors("UIPolicy");
 
             app.Run(async (context) =>
             {

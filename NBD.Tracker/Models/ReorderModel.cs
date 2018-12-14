@@ -1,5 +1,5 @@
-﻿using NBD.SDK;
-using NBD.Tracker.DAL;
+﻿using NBD.Services.Core.Exceptions;
+using NBD.Services.Goals;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,31 +15,26 @@ namespace NBD.Tracker.Models
         [Required]
         public Guid TargetParentId { get; set; }
 
-        public async Task<bool> IsValidReorderAsync(IRepository<Goal> goals)
+        public async Task<bool> IsValidReorderAsync(IGoalsService goalsService)
         {
             if (this.GoalId == this.TargetParentId)
             {
                 return false;
             }
 
-            var goal = goals.Where(g => g.Id == this.GoalId).FirstOrDefault();
+            try
+            {
+                var goal = await goalsService.GetGoalAsync(this.GoalId);
+                var targetParent = await goalsService.GetGoalAsync(this.TargetParentId);
+                var childrenIds = goal.GetTree().Select(g => g.Id);
+                var targetParentIsAChild = childrenIds.Any(c => c == this.TargetParentId);
 
-            if (goal == null)
+                return !targetParentIsAChild;
+            }
+            catch (GoalNotFoundException)
             {
                 return false;
             }
-
-            var targetParent = await goals.GetAsync(this.TargetParentId);
-
-            if (targetParent == null)
-            {
-                return false;
-            }
-
-            var childrenIds = goal.GetTree().Select(g => g.Id);
-            var targetParentIsAChild = childrenIds.Any(c => c == this.TargetParentId);
-
-            return !targetParentIsAChild;
         }
     }
 }

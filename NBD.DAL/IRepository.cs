@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace NBD.Tracker.DAL
+namespace NBD.DAL
 {
     public interface IRepository<T> where T : class
     {

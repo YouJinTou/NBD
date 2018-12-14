@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NBD.SDK;
 
-namespace NBD.Tracker.DAL
+namespace NBD.DAL
 {
     public class TrackerContext : DbContext
     {

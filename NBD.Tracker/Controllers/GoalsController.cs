@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NBD.SDK;
-using NBD.Tracker.DAL;
+using NBD.Services.Core.Exceptions;
+using NBD.Services.Goals;
 using NBD.Tracker.Models;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NBD.Tracker.Controllers
@@ -14,37 +14,32 @@ namespace NBD.Tracker.Controllers
     [Route("api/[controller]")]
     public class GoalsController : Controller
     {
-        private readonly IRepository<Goal> goals;
+        private readonly IGoalsService goalsService;
 
-        public GoalsController(IRepository<Goal> goals)
+        public GoalsController(IGoalsService goalsService)
         {
-            this.goals = goals;
+            this.goalsService = goalsService;
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetGoalAsync(Guid id)
         {
-            return await Task.Run(() =>
+            try
             {
-                try
-                {
-                    var goal = this.goals.Where(g => g.Id == id).FirstOrDefault();
+                var goal = await this.goalsService.GetGoalAsync(id);
+                var model = Mapper.Map<Goal, GoalViewModel>(goal);
 
-                    if (goal == null)
-                    {
-                        return NotFound(goal);
-                    }
-
-                    var modelRoot = Mapper.Map<Goal, GoalViewModel>(goal);
-
-                    return Ok(modelRoot);
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, ex.Message);
-                }
-            });
+                return Ok(model);
+            }
+            catch (GoalNotFoundException gnfe)
+            {
+                return NotFound(gnfe.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPost]
@@ -53,14 +48,14 @@ namespace NBD.Tracker.Controllers
         {
             try
             {
-                if (!(ModelState.IsValid && await model.IsWithinParentDatesAsync(this.goals)))
+                if (!(ModelState.IsValid && await model.IsWithinParentDatesAsync(this.goalsService)))
                 {
                     return BadRequest(model);
                 }
 
                 var goal = Mapper.Map<GoalBindingModel, Goal>(model);
 
-                await this.goals.AddAsync(goal);
+                await this.goalsService.AddGoalAsync(goal);
 
                 return Ok(goal);
             }
@@ -76,16 +71,13 @@ namespace NBD.Tracker.Controllers
         {
             try
             {
-                var goal = this.goals.Where(g => g.Id == id).FirstOrDefault();
+                await this.goalsService.DeleteCascadingAsync(id);
 
-                if (goal == null)
-                {
-                    return NotFound(goal);
-                }
-
-                await this.goals.DeleteManyAsync(goal.GetTree());
-
-                return Ok(goal);
+                return Ok();
+            }
+            catch (GoalNotFoundException gnfe)
+            {
+                return NotFound(gnfe.Message);
             }
             catch (Exception ex)
             {
@@ -99,29 +91,20 @@ namespace NBD.Tracker.Controllers
         {
             try
             {
-                if (!(ModelState.IsValid && await model.IsWithinParentDatesAsync(this.goals)))
+                if (!(ModelState.IsValid && await model.IsWithinParentDatesAsync(this.goalsService)))
                 {
                     return BadRequest(model);
                 }
 
-                var goal = this.goals.Where(g => g.Id == model.Id).FirstOrDefault();
+                var goal = Mapper.Map<GoalEditModel, Goal>(model);
 
-                if (goal == null)
-                {
-                    return NotFound(goal);
-                }
-
-                goal.Target = model.Target;
-                goal.StartDate = model.StartDate;
-                goal.EndDate = model.EndDate;
-                goal.Description = model.Description;
-                goal.Title = model.Title;
-                goal.RecurrenceType = model.RecurrenceType;
-                goal.RecurrenceValue = model.RecurrenceValue;
-
-                await this.goals.EditAsync(goal);
+                await this.goalsService.EditGoalAsync(goal);
 
                 return Ok(goal);
+            }
+            catch (GoalNotFoundException gnfe)
+            {
+                return NotFound(gnfe.Message);
             }
             catch (Exception ex)
             {
@@ -140,18 +123,14 @@ namespace NBD.Tracker.Controllers
                     return BadRequest(model);
                 }
 
-                var goal = this.goals.Where(g => g.Id == model.GoalId).FirstOrDefault();
+                var progressedGoal =
+                    await this.goalsService.MakeProgressAsync(model.GoalId, model.Progress);
 
-                if (goal == null)
-                {
-                    return NotFound(goal);
-                }
-
-                goal.MakeProgress(model.Progress);
-
-                await this.goals.EditAsync(goal);
-
-                return Ok(goal);
+                return Ok(progressedGoal);
+            }
+            catch (GoalNotFoundException gnfe)
+            {
+                return NotFound(gnfe.Message);
             }
             catch (Exception ex)
             {
@@ -165,17 +144,15 @@ namespace NBD.Tracker.Controllers
         {
             try
             {
-                if (!(ModelState.IsValid && await model.IsValidReorderAsync(this.goals)))
+                if (!(ModelState.IsValid && await model.IsValidReorderAsync(this.goalsService)))
                 {
                     return BadRequest(model);
                 }
 
-                var goal = await this.goals.GetAsync(model.GoalId);
-                goal.ParentId = model.TargetParentId;
+                var movedGoal = await this.goalsService.ReorderTreeAsync(
+                    model.GoalId, model.TargetParentId);
 
-                await this.goals.EditAsync(goal);
-
-                return Ok(goal);
+                return Ok(movedGoal);
             }
             catch (Exception ex)
             {

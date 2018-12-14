@@ -1,6 +1,6 @@
 ﻿using NBD.SDK;
 using NBD.SDK.Attributes;
-using NBD.Tracker.DAL;
+using NBD.Services.Goals;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -28,14 +28,14 @@ namespace NBD.Tracker.Models
 
         public int? Target { get; set; }
 
-        public async Task<bool> IsWithinParentDatesAsync(IRepository<Goal> goals)
+        public async Task<bool> IsWithinParentDatesAsync(IGoalsService goalsService)
         {
             if (this.ParentId == null)
             {
                 return true;
             }
 
-            var parent = await goals.GetAsync(this.ParentId);
+            var parent = await goalsService.GetGoalAsync(this.ParentId.Value);
             var startDateValid =
                 this.StartDate == null ||
                 (this.StartDate >= parent.StartDate);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NBD.Tracker.DAL
+namespace NBD.DAL
 {
     public class Repository<T> : IRepository<T> where T : class
     {
