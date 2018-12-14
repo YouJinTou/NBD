@@ -1,6 +1,6 @@
 <div class="goal-form">
     <h2>Goal</h2>
-    
+
     <form (ngSubmit)="onSubmit()" #addGoalForm="ngForm">
         <div>
             <input [(ngModel)]="goal.title" name="title" placeholder="Title" id="title" type="text" required />
@@ -12,6 +12,10 @@
 
         <div>
             <input [(ngModel)]="goal.endDate" name="endDate" placeholder="End date" id="endDate" type="text" required />
+        </div>
+
+        <div>
+            <input [(ngModel)]="goal.description" name="description" placeholder="Description" id="description" type="text" required />
         </div>
 
         <div>
