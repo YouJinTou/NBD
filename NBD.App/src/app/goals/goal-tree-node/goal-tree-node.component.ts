@@ -26,6 +26,10 @@ export class GoalTreeNodeComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.node == null) {
+      return;
+    }
+    
     this.makeProgressText = this.node.target == null ? 'Finish' : 'Make progress';
     this.progress = (this.node.progress / (this.node.target === null ? 1 : this.node.target)) * 100;
     this.showProgressInputField = (this.node.target != null);
