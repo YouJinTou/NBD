@@ -4,6 +4,7 @@ export class Goal {
     title: string;
     startDate: string;
     endDate: string;
+    description: string;
     recurrenceType: number;
     recurrenceValue: number;
     target: number;
